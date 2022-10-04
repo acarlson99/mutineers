@@ -5,36 +5,14 @@ using UnityEngine;
 
 public enum TurnState { Start, Thrown, BombSummoned, BombThrown, End };
 
-public class Singleton : MonoBehaviour
+public class TurnManager
 {
-    // Start is called before the first frame update
-    public static Singleton Instance { get; private set; }
-
-    public float killzoneY;
-    public LineRenderer lineRenderer;
+    public TurnState state { get; private set; }
     public GameObject selectedBoy = null;
-
-    [HideInInspector]
     public int turnNum = 0;
+    public int[] unitCounts = { 0, 0 };
 
-    public TurnState state = TurnState.Start;
-
-    private void Awake()
-    {
-        // If there is an instance, and it's not me, delete myself.
-
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if (state == TurnState.BombThrown || state == TurnState.End)
         {
@@ -45,13 +23,21 @@ public class Singleton : MonoBehaviour
         }
     }
 
-    public int[] unitCounts = { 0, 0 };
-
-    public void PlayerManager(int team, bool register)
+    public bool UpdateState(TurnState s)
     {
-        // register gameobj or unregister if false
-        if (register) unitCounts[team]++;
-        else unitCounts[team]--;
+        if (s <= state) return false;
+        state = s;
+        return true;
+    }
+
+    public void PlayerRegister(int team)
+    {
+        unitCounts[team]++;
+    }
+
+    public void PlayerUnregister(int team)
+    {
+        unitCounts[team]--;
     }
 
     public int GetLosingTeam()
@@ -61,5 +47,35 @@ public class Singleton : MonoBehaviour
             if (unitCounts[i] == 0) return i;
         }
         return -1;
+    }
+}
+
+public class Singleton : MonoBehaviour
+{
+    public static Singleton Instance { get; private set; }
+
+    public float killzoneY;
+    public LineRenderer lineRenderer;
+
+    public TurnManager turnManager = null;
+
+    private void Awake()
+    {
+        // If there is an instance, and it's not me, delete myself.
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+            turnManager = new TurnManager();
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        turnManager.Update();
     }
 }

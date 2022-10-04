@@ -23,7 +23,7 @@ public class PlayerMenuController : MonoBehaviour
             selectedPirate = null;
             gameObject.SetActive(false);
         }
-        if (Singleton.Instance.state >= TurnState.Thrown)
+        if (Singleton.Instance.turnManager.state >= TurnState.Thrown)
         {
             throwButton.SetActive(false);
         }
@@ -35,9 +35,9 @@ public class PlayerMenuController : MonoBehaviour
 
     public bool OpenMenuForPirate(GameObject pirate)
     {
-        if (Singleton.Instance.selectedBoy != null && Singleton.Instance.selectedBoy != pirate)
+        if (Singleton.Instance.turnManager.selectedBoy != null && Singleton.Instance.turnManager.selectedBoy != pirate)
         {
-            Debug.Log("Already selected " + Singleton.Instance.selectedBoy.name + "; ignoring");
+            Debug.Log("Already selected " + Singleton.Instance.turnManager.selectedBoy.name + "; ignoring");
             return false;
         }
         selectedPirate = pirate;
@@ -49,20 +49,25 @@ public class PlayerMenuController : MonoBehaviour
 
     public void SelectedPirateThrowMode()
     {
-        if (Singleton.Instance.turnNum != selectedPirate.GetComponent<PirateController>().teamNum || Singleton.Instance.state >= TurnState.Thrown) return;
+        if (Singleton.Instance.turnManager.turnNum != selectedPirate.GetComponent<PirateController>().teamNum
+         || Singleton.Instance.turnManager.state >= TurnState.Thrown)
+            return;
         selectedPirate.GetComponent<PirateController>().BeginPlayerThrow();
-        Singleton.Instance.selectedBoy = selectedPirate;
+        Singleton.Instance.turnManager.selectedBoy = selectedPirate;
     }
 
     public void SelectedPirateBomb()
     {
-        if (Singleton.Instance.turnNum != selectedPirate.GetComponent<PirateController>().teamNum || Singleton.Instance.state >= TurnState.BombSummoned) return;
+        if (Singleton.Instance.turnManager.turnNum != selectedPirate.GetComponent<PirateController>().teamNum
+         || Singleton.Instance.turnManager.state >= TurnState.BombSummoned)
+            return;
         selectedPirate.GetComponent<PirateController>().BeginBombThrow();
-        Singleton.Instance.selectedBoy = selectedPirate;
+        Singleton.Instance.turnManager.selectedBoy = selectedPirate;
     }
 
     public void EndCurrentTurn()
     {
-        Singleton.Instance.state = TurnState.End;
+        if (!Singleton.Instance.turnManager.UpdateState(TurnState.End))
+            throw new System.Exception("EndCurrentTurn, turnmanager");
     }
 }

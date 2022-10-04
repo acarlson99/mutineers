@@ -54,7 +54,7 @@ public class CameraController : MonoBehaviour
         pos.y = Mathf.Clamp(pos.y, minBound.y, maxBound.y);
         transform.position = pos;
 
-        if (Singleton.Instance.GetLosingTeam() > -1)
+        if (Singleton.Instance.turnManager.GetLosingTeam() > -1)
         {
             Invoke(nameof(MainMenu), 2.5f);
             winCanvas.SetActive(true);

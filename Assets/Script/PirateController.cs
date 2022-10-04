@@ -27,7 +27,7 @@ public class PirateController : MonoBehaviour
             throwMode = false;
         };
 
-        Singleton.Instance.PlayerManager(teamNum, true);
+        Singleton.Instance.turnManager.PlayerRegister(teamNum);
         if (teamNum != 0) GetComponent<SpriteRenderer>().flipX = true;
     }
 
@@ -50,17 +50,18 @@ public class PirateController : MonoBehaviour
 
     private void OnDestroy()
     {
-        Singleton.Instance.PlayerManager(teamNum, false);
-        if (Singleton.Instance.selectedBoy == gameObject)
+        Singleton.Instance.turnManager.PlayerUnregister(teamNum);
+        if (Singleton.Instance.turnManager.selectedBoy == gameObject)
         {
-            Singleton.Instance.selectedBoy = null;
-            Singleton.Instance.state = TurnState.End;
+            //Singleton.Instance.turnManager.selectedBoy = null;
+            //Singleton.Instance.turnManager.state = TurnState.End;
+            Singleton.Instance.turnManager.UpdateState(TurnState.End);
         }
     }
 
     void OnMouseUpAsButton()
     {
-        if (Singleton.Instance.turnNum != teamNum) return;
+        if (Singleton.Instance.turnManager.turnNum != teamNum) return;
         Debug.Log("Click pirate " + gameObject.name);
         if (throwMode || bombThrowMode) return;
 
@@ -72,15 +73,19 @@ public class PirateController : MonoBehaviour
 
     public void BeginPlayerThrow()
     {
+        if (!Singleton.Instance.turnManager.UpdateState(TurnState.Thrown)) throw new System.Exception("BeginPlayerThrow, turnmanager");
+
         throwMode = true;
 
-        Singleton.Instance.state = TurnState.Thrown;
+        //Singleton.Instance.turnManager.state = TurnState.Thrown;
     }
 
     public void BeginBombThrow()
     {
+        if (!Singleton.Instance.turnManager.UpdateState(TurnState.BombSummoned))
+            throw new System.Exception("BeginBombThrow, turnmanager");
+
         bombThrowMode = true;
-        Singleton.Instance.state = TurnState.BombSummoned;
 
         var fab = Instantiate(bombObject);
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), fab.GetComponent<Collider2D>());
@@ -95,8 +100,9 @@ public class PirateController : MonoBehaviour
 
     public void EndBombThrow()
     {
-        bombThrowMode = false;
+        if (!Singleton.Instance.turnManager.UpdateState(TurnState.BombThrown))
+            throw new System.Exception("EndBombThrow, turnmanager");
 
-        Singleton.Instance.state = TurnState.BombThrown;
+        bombThrowMode = false;
     }
 }
