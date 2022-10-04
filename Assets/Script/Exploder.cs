@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Exploder : MonoBehaviour
 {
-    //CircleCollider2D circleCollider;
     public Sprite explosionSprite;
     public float explosionRadius = 3f;
     public float explosionPower = 1f;
@@ -27,20 +26,17 @@ public class Exploder : MonoBehaviour
 
     private void OnMouseUp()
     {
-        var lc = GetComponent<LaunchController>();
-        if (lc) GetComponent<Rigidbody2D>().gravityScale = lc.gravityScale;
-        //thrower = null;
     }
 
     private void OnDestroy()
     {
-        // FIXME: this will bug if bomb throw cancelled
         if (thrower) thrower.SendMessage("EndBombThrow");
 
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // TODO: if thrown against object it bounces off it and then explodes
         if (!explosionEnabled) return;
 
         explosionEnabled = false; // FIXED: prevent double explosion

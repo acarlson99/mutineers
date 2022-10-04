@@ -15,7 +15,6 @@ public class PirateController : MonoBehaviour
 
     private LaunchController launchController;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -36,12 +35,12 @@ public class PirateController : MonoBehaviour
     {
         // NOTE: this destroys the object sometimes
         // FINDME: find this, important
+        // destroy if out of bounds
         launchController.DestroyIfOOB();
         if (throwMode)
         {
             launchController.enabled = true;
         }
-        // TODO: if y < -10 (or whatever) then die
         if (bombThrowMode)
         {
             launchController.enabled = false;
@@ -53,8 +52,6 @@ public class PirateController : MonoBehaviour
         Singleton.Instance.turnManager.PlayerUnregister(teamNum);
         if (Singleton.Instance.turnManager.selectedBoy == gameObject)
         {
-            //Singleton.Instance.turnManager.selectedBoy = null;
-            //Singleton.Instance.turnManager.state = TurnState.End;
             Singleton.Instance.turnManager.UpdateState(TurnState.End);
         }
     }
@@ -66,18 +63,14 @@ public class PirateController : MonoBehaviour
         if (throwMode || bombThrowMode) return;
 
         menu.GetComponent<PlayerMenuController>().OpenMenuForPirate(gameObject);
-
-        //menu.GetComponent<PlayerMenuController>().selectedPirate = gameObject;
-        //menu.SetActive(true);
     }
 
     public void BeginPlayerThrow()
     {
+        // TODO: this doesnt allow redo if throw cancel, fix
         if (!Singleton.Instance.turnManager.UpdateState(TurnState.Thrown)) throw new System.Exception("BeginPlayerThrow, turnmanager");
 
         throwMode = true;
-
-        //Singleton.Instance.turnManager.state = TurnState.Thrown;
     }
 
     public void BeginBombThrow()
@@ -92,9 +85,8 @@ public class PirateController : MonoBehaviour
         var pos = transform.position;
         pos.z--;
         fab.transform.position = pos;
-        fab.GetComponent<Rigidbody2D>().gravityScale = 0f;
-        fab.GetComponent<LaunchController>().gravityScale = 1f;
-        //fab.GetComponent<LaunchController>().lr = launchController.lr;
+        fab.GetComponent<LaunchController>().gravityScale = fab.GetComponent<Rigidbody2D>().gravityScale;
+        fab.GetComponent<Rigidbody2D>().gravityScale = 0f; // TODO: this is an unsafe way to temporarily disable gravityscale
         fab.GetComponent<Exploder>().thrower = gameObject;
     }
 

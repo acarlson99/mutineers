@@ -21,7 +21,6 @@ public class LaunchController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         if (gravityScale == 0f) gravityScale = rb.gravityScale;
-        //lr.enabled = false;
     }
 
     void Update()
@@ -51,6 +50,7 @@ public class LaunchController : MonoBehaviour
     {
         if (!enabled || !dragging) return;
         rb.AddForce(LaunchVelocity(), ForceMode2D.Impulse);
+        rb.gravityScale = gravityScale;
         Deselect();
 
         // if attatched to a bomb make it explodable
@@ -91,8 +91,7 @@ public class LaunchController : MonoBehaviour
         List<Vector2> results = new List<Vector2>();
 
         float timestep = Time.fixedDeltaTime / Physics2D.velocityIterations;
-        Vector2 gravityAccel = Physics2D.gravity * gravityScale * timestep * timestep;
-        //Vector2 gravityAccel = Physics2D.gravity * 1f * timestep * timestep;
+        Vector2 gravityAccel = gravityScale * timestep * timestep * Physics2D.gravity;
 
         float drag = 1f - timestep * rbdrag;
         Vector2 moveStep = velocity * timestep;

@@ -27,6 +27,7 @@ public class TurnManager
     {
         if (s <= state) return false;
         state = s;
+        if (state == TurnState.End) selectedBoy = null;
         return true;
     }
 

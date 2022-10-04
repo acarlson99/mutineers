@@ -23,7 +23,7 @@ public class BackgroundScroller : MonoBehaviour
         if (!rt)
             return;
 
-        //Scale image proportionally to fit the screen dimensions, while preserving aspect ratio
+        // Scale image proportionally to fit the screen dimensions, while preserving aspect ratio
         if (Screen.height * ratio >= Screen.width)
         {
             rt.sizeDelta = new Vector2(Screen.height * ratio, Screen.height);
