@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class LaunchController : MonoBehaviour
 {
-    public float power = 5f;
+    public float launchPower = 5f;
     public Action deselectCB = () => { };
 
     [HideInInspector]
@@ -52,8 +52,10 @@ public class LaunchController : MonoBehaviour
         rb.AddForce(LaunchVelocity(), ForceMode2D.Impulse);
         rb.gravityScale = gravityScale;
         Deselect();
+        enabled = false;
 
         // if attatched to a bomb make it explodable
+        // TODO: this is messy, refactor
         Exploder e = GetComponent<Exploder>();
         if (e) e.explosionEnabled = true;
     }
@@ -115,7 +117,7 @@ public class LaunchController : MonoBehaviour
         Vector2 v = (Vector2)mouseWorldPos - pos;
         // TODO: parameterize
         v = Vector2.ClampMagnitude(v, 8);
-        return -v * power;
+        return -v * launchPower;
     }
 
     // FINDME: find this, important

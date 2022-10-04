@@ -7,7 +7,9 @@ public class Exploder : MonoBehaviour
 {
     public Sprite explosionSprite;
     public float explosionRadius = 3f;
-    public float explosionPower = 1f;
+    public float explosionPower = 250f;
+    public float upwardEffect = 50; // send upwards for effect
+    public float falloff = 1.2f; // explosion power weakens at distance
 
     [HideInInspector]
     public bool explosionEnabled = false;
@@ -34,29 +36,39 @@ public class Exploder : MonoBehaviour
 
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        OnCollisionEnter2D(collision);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // TODO: if thrown against object it bounces off it and then explodes
         if (!explosionEnabled) return;
 
         explosionEnabled = false; // FIXED: prevent double explosion
+        Explode(collision.collider.ClosestPoint(transform.position));
+    }
 
-        Vector2 collisionPos = collision.collider.ClosestPoint(transform.position);
+    public Vector3 spriteOffset = new Vector3(0, 0, 1);
 
+    public void Explode(Vector2 explosionPos)
+    {
         GameObject explosionCircle = new GameObject("explosion");
-        explosionCircle.transform.position = collisionPos;
+        explosionCircle.transform.position = (Vector3)explosionPos + spriteOffset;
         explosionCircle.transform.localScale = new Vector3(explosionRadius * 2, explosionRadius * 2, 1f);
         var spriteRenderer = explosionCircle.AddComponent<SpriteRenderer>();
         spriteRenderer.color = Color.red;
         spriteRenderer.sprite = explosionSprite;
 
-        var colliders = Physics2D.OverlapCircleAll(collisionPos, explosionRadius);
+        var colliders = Physics2D.OverlapCircleAll(explosionPos, explosionRadius);
         foreach (var c in colliders)
         {
             //if (!c.CompareTag("Player")) continue;
+            Debug.Log(c.tag);
             var rb = c.GetComponent<Rigidbody2D>();
             if (!rb) continue;
-            rb.AddExpExplosionForce(rb.ClosestPoint(collisionPos), 250, 50, 1.2f);
+            rb.AddExpExplosionForce(rb.ClosestPoint(explosionPos), explosionPower, upwardEffect, falloff);
         }
         Destroy(gameObject);
         Destroy(explosionCircle, 1.0f);

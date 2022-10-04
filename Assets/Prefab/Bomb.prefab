@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26636a30f5804a743ad2b17f40c090c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 5
+  launchPower: 5
   gravityScale: 0
 --- !u!114 &8493921358440306054
 MonoBehaviour:
@@ -153,6 +153,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionSprite: {fileID: -2413806693520163455, guid: 1d63e583f7e6117419a8a9d9a31be371, type: 3}
   explosionRadius: 3
-  explosionPower: 3
+  explosionPower: 250
   explosionEnabled: 0
   thrower: {fileID: 0}

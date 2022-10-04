@@ -88,6 +88,7 @@ public class PirateController : MonoBehaviour
         fab.GetComponent<LaunchController>().gravityScale = fab.GetComponent<Rigidbody2D>().gravityScale;
         fab.GetComponent<Rigidbody2D>().gravityScale = 0f; // TODO: this is an unsafe way to temporarily disable gravityscale
         fab.GetComponent<Exploder>().thrower = gameObject;
+        fab.GetComponent<Exploder>().explosionEnabled = false;
     }
 
     public void EndBombThrow()
