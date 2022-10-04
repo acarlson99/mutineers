@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PirateController : MonoBehaviour
 {
+    // TODO: add health
     public GameObject menu;
     public GameObject bombObject;
     public int teamNum;
