@@ -65,7 +65,6 @@ public class Exploder : MonoBehaviour
         foreach (var c in colliders)
         {
             //if (!c.CompareTag("Player")) continue;
-            Debug.Log(c.tag);
             var rb = c.GetComponent<Rigidbody2D>();
             if (!rb) continue;
             rb.AddExpExplosionForce(rb.ClosestPoint(explosionPos), explosionPower, upwardEffect, falloff);
