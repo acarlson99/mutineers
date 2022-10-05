@@ -13,6 +13,8 @@ public class PirateController : MonoBehaviour
     public bool throwMode = false;
     [HideInInspector]
     public bool bombThrowMode = false;
+    [HideInInspector]
+    public Exploder lastThrown = null;
 
     private LaunchController launchController;
 
@@ -21,11 +23,11 @@ public class PirateController : MonoBehaviour
     {
         launchController = GetComponent<LaunchController>();
         launchController.enabled = false;
-        launchController.deselectCB = () =>
-        {
-            launchController.enabled = false;
-            throwMode = false;
-        };
+        //launchController.deselectCB = () =>
+        //{
+        //    launchController.enabled = false;
+        //    throwMode = false;
+        //};
 
         Singleton.Instance.turnManager.PlayerRegister(teamNum);
         if (teamNum != 0) GetComponent<SpriteRenderer>().flipX = true;
@@ -41,10 +43,12 @@ public class PirateController : MonoBehaviour
         if (throwMode)
         {
             launchController.enabled = true;
+            bombThrowMode = false;
         }
         if (bombThrowMode)
         {
             launchController.enabled = false;
+            throwMode = false;
         }
     }
 
@@ -54,6 +58,7 @@ public class PirateController : MonoBehaviour
         if (Singleton.Instance.turnManager.selectedBoy == gameObject)
         {
             Singleton.Instance.turnManager.UpdateState(TurnState.End);
+            Singleton.Instance.vcam.Follow = null;
         }
     }
 
@@ -68,10 +73,21 @@ public class PirateController : MonoBehaviour
 
     public void BeginPlayerThrow()
     {
-        // TODO: this doesnt allow redo if throw cancel, fix
-        if (!Singleton.Instance.turnManager.UpdateState(TurnState.Thrown)) throw new System.Exception("BeginPlayerThrow, turnmanager");
-
         throwMode = true;
+
+        Singleton.Instance.vcam.Follow = transform;
+    }
+
+    public void EndPlayerThrow() { EndLaunch(); }
+    public void EndLaunch()
+    {
+        if (!Singleton.Instance.turnManager.UpdateState(TurnState.Thrown))
+            throw new System.Exception("BeginPlayerThrow, turnmanager");
+
+        throwMode = false;
+        launchController.enabled = false;
+
+        Singleton.Instance.vcam.Follow = transform;
     }
 
     public void BeginBombThrow()
@@ -90,6 +106,9 @@ public class PirateController : MonoBehaviour
         fab.GetComponent<Rigidbody2D>().gravityScale = 0f; // TODO: this is an unsafe way to temporarily disable gravityscale
         fab.GetComponent<Exploder>().thrower = gameObject;
         fab.GetComponent<Exploder>().explosionEnabled = false;
+        lastThrown = fab.GetComponent<Exploder>();
+
+        Singleton.Instance.vcam.Follow = fab.transform;
     }
 
     public void EndBombThrow()
@@ -98,5 +117,7 @@ public class PirateController : MonoBehaviour
             throw new System.Exception("EndBombThrow, turnmanager");
 
         bombThrowMode = false;
+
+        Singleton.Instance.vcam.Follow = null;
     }
 }

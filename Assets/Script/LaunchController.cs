@@ -9,7 +9,7 @@ using UnityEngine;
 public class LaunchController : MonoBehaviour
 {
     public float launchPower = 5f;
-    public Action deselectCB = () => { };
+    //public Action deselectCB = () => { };
 
     [HideInInspector]
     public float gravityScale = 0f;
@@ -57,13 +57,15 @@ public class LaunchController : MonoBehaviour
         // if attatched to a bomb make it explodable
         // TODO: this is messy, refactor
         Exploder e = GetComponent<Exploder>();
-        if (e) e.explosionEnabled = true;
+        if (e) e.SendMessage("EndLaunch");
+        PirateController p = GetComponent<PirateController>();
+        if (p) p.SendMessage("EndLaunch");
     }
 
     private void Deselect()
     {
         dragging = false;
-        deselectCB();
+        //deselectCB();
 #if UNITY_EDITOR
 #else
         Singleton.Instance.lineRenderer.enabled = false;

@@ -72,4 +72,9 @@ public class Exploder : MonoBehaviour
         Destroy(gameObject);
         Destroy(explosionCircle, 1.0f);
     }
+
+    public void EndLaunch()
+    {
+        explosionEnabled = true;
+    }
 }

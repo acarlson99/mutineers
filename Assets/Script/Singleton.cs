@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -59,6 +60,8 @@ public class Singleton : MonoBehaviour
     public LineRenderer lineRenderer;
 
     public TurnManager turnManager = null;
+
+    public CinemachineVirtualCamera vcam = null;
 
     private void Awake()
     {
