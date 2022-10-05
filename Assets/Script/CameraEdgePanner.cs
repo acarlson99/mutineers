@@ -33,7 +33,6 @@ public class CameraEdgePanner : MonoBehaviour
     private void Update()
     {
         var scroll = Input.GetAxis("Mouse ScrollWheel");
-        // TODO: linearly interpolate (somehow idk)
         if (scroll != 0)
         {
             currentZoom -= Time.deltaTime * scroll * zoomSpeed;

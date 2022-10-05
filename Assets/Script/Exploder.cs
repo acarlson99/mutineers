@@ -43,7 +43,6 @@ public class Exploder : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // TODO: if thrown against object it bounces off it and then explodes
         if (!explosionEnabled) return;
 
         explosionEnabled = false; // FIXED: prevent double explosion
@@ -67,7 +66,12 @@ public class Exploder : MonoBehaviour
             //if (!c.CompareTag("Player")) continue;
             var rb = c.GetComponent<Rigidbody2D>();
             if (!rb) continue;
-            rb.AddExpExplosionForce(rb.ClosestPoint(explosionPos), explosionPower, upwardEffect, falloff);
+            //var f = rb.AddExpExplosionForce(rb.ClosestPoint(explosionPos), explosionPower, upwardEffect, falloff);
+            Vector2 f = rb.AddExpExplosionForce(explosionPos, explosionPower, upwardEffect, falloff);
+
+            var p = c.GetComponent<PirateController>();
+            if (!p) continue;
+            p.DealExplosionDamage(f);
         }
         Destroy(gameObject);
         Destroy(explosionCircle, 1.0f);

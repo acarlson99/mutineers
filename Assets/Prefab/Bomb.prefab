@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchPower: 5
+  launchMagnitudeClamp: 2.5
   gravityScale: 0
 --- !u!114 &8493921358440306054
 MonoBehaviour:
@@ -154,5 +155,8 @@ MonoBehaviour:
   explosionSprite: {fileID: -2413806693520163455, guid: 1d63e583f7e6117419a8a9d9a31be371, type: 3}
   explosionRadius: 3
   explosionPower: 250
+  upwardEffect: 50
+  falloff: 1.2
   explosionEnabled: 0
   thrower: {fileID: 0}
+  spriteOffset: {x: 0, y: 0, z: 1}

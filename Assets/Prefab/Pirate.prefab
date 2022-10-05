@@ -147,8 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26636a30f5804a743ad2b17f40c090c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 5
-  lr: {fileID: 0}
+  launchPower: 5
+  launchMagnitudeClamp: 2.5
   gravityScale: 0
 --- !u!114 &1391761321506198763
 MonoBehaviour:
@@ -164,5 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menu: {fileID: 0}
   bombObject: {fileID: 0}
+  teamNum: 0
   throwMode: 0
   bombThrowMode: 0
+  lastThrown: {fileID: 0}

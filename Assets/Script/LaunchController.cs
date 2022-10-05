@@ -9,6 +9,7 @@ using UnityEngine;
 public class LaunchController : MonoBehaviour
 {
     public float launchPower = 5f;
+    public float launchMagnitudeClamp = 2.5f;
     //public Action deselectCB = () => { };
 
     [HideInInspector]
@@ -43,13 +44,18 @@ public class LaunchController : MonoBehaviour
     {
         if (!enabled || !dragging) return;
         dragging = true;
-        DrawTrajectory();
+        DrawTrajectory(Camera.main.ScreenToWorldPoint(Input.mousePosition));
     }
 
     private void OnMouseUp()
     {
         if (!enabled || !dragging) return;
-        rb.AddForce(LaunchVelocity(), ForceMode2D.Impulse);
+        Launch(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+    }
+
+    public void Launch(Vector3 mousePos)
+    {
+        rb.AddForce(LaunchVelocity(mousePos), ForceMode2D.Impulse);
         rb.gravityScale = gravityScale;
         Deselect();
         enabled = false;
@@ -72,10 +78,10 @@ public class LaunchController : MonoBehaviour
 #endif
     }
 
-    public void DrawTrajectory()
+    public void DrawTrajectory(Vector3 mousePos)
     {
         Singleton.Instance.lineRenderer.enabled = true;
-        Vector2 _velocity = LaunchVelocity();
+        Vector2 _velocity = LaunchVelocity(mousePos);
         int steps = (int)(Math.Sqrt(_velocity.SqrMagnitude()) * 100);
         List<Vector2> points = PlotTrajectory(gravityScale, rb.drag, (Vector2)transform.position, _velocity, steps);
         points.Insert(0, ((Vector2)transform.position));
@@ -111,14 +117,13 @@ public class LaunchController : MonoBehaviour
         return results;
     }
 
-    private Vector2 LaunchVelocity()
+    private Vector2 LaunchVelocity(Vector3 mouseWorldPos)
     {
         if (!rb) return Vector2.zero;
         Vector2 pos = rb.position;
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 v = (Vector2)mouseWorldPos - pos;
         // TODO: parameterize
-        v = Vector2.ClampMagnitude(v, 8);
+        if (launchMagnitudeClamp != 0) v = Vector2.ClampMagnitude(v, launchMagnitudeClamp);
         return -v * launchPower;
     }
 

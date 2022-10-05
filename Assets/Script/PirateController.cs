@@ -17,12 +17,14 @@ public class PirateController : MonoBehaviour
     public Exploder lastThrown = null;
 
     private LaunchController launchController;
+    private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
         launchController = GetComponent<LaunchController>();
         launchController.enabled = false;
+        rb = GetComponent<Rigidbody2D>();
         //launchController.deselectCB = () =>
         //{
         //    launchController.enabled = false;
@@ -78,11 +80,11 @@ public class PirateController : MonoBehaviour
         Singleton.Instance.vcam.Follow = transform;
     }
 
-    public void EndPlayerThrow() { EndLaunch(); }
-    public void EndLaunch()
+    public void EndLaunch() { EndPlayerThrow(); }
+    public void EndPlayerThrow()
     {
         if (!Singleton.Instance.turnManager.UpdateState(TurnState.Thrown))
-            throw new System.Exception("BeginPlayerThrow, turnmanager");
+            Debug.LogWarning("BeginPlayerThrow, turnmanager");
 
         throwMode = false;
         launchController.enabled = false;
@@ -93,7 +95,7 @@ public class PirateController : MonoBehaviour
     public void BeginBombThrow()
     {
         if (!Singleton.Instance.turnManager.UpdateState(TurnState.BombSummoned))
-            throw new System.Exception("BeginBombThrow, turnmanager");
+            Debug.LogWarning("EndBombThrow, turnmanager");
 
         bombThrowMode = true;
 
@@ -114,10 +116,15 @@ public class PirateController : MonoBehaviour
     public void EndBombThrow()
     {
         if (!Singleton.Instance.turnManager.UpdateState(TurnState.BombThrown))
-            throw new System.Exception("EndBombThrow, turnmanager");
+            Debug.LogWarning("EndBombThrow, turnmanager");
 
         bombThrowMode = false;
 
         Singleton.Instance.vcam.Follow = null;
+    }
+
+    public void DealExplosionDamage(Vector2 f)
+    {
+        Debug.Log("Explosion Damage " + gameObject.name + ' ' + f.magnitude);
     }
 }
