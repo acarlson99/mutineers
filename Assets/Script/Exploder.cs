@@ -8,7 +8,7 @@ public class Exploder : MonoBehaviour
     public Sprite explosionSprite;
     public float explosionRadius = 3f;
     public float explosionPower = 250f;
-    public float upwardEffect = 50; // send upwards for effect
+    public float upwardEffect = 1; // send upwards for effect (0 to disable)
     public float falloff = 1.2f; // explosion power weakens at distance
 
     [HideInInspector]
@@ -66,12 +66,12 @@ public class Exploder : MonoBehaviour
             //if (!c.CompareTag("Player")) continue;
             var rb = c.GetComponent<Rigidbody2D>();
             if (!rb) continue;
-            //var f = rb.AddExpExplosionForce(rb.ClosestPoint(explosionPos), explosionPower, upwardEffect, falloff);
-            Vector2 f = rb.AddExpExplosionForce(explosionPos, explosionPower, upwardEffect, falloff);
+            var v = rb.AddExpExplosionForce(explosionPos, explosionPower, upwardEffect, falloff);
 
             var p = c.GetComponent<PirateController>();
             if (!p) continue;
-            p.DealExplosionDamage(f);
+            p.DealExplosionDamage(v);
+            //p.DealExplosionDamage(rb.GetExplosionForceVector2D(explosionPos, explosionPower, falloff));
         }
         Destroy(gameObject);
         Destroy(explosionCircle, 1.0f);

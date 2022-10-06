@@ -155,7 +155,7 @@ MonoBehaviour:
   explosionSprite: {fileID: -2413806693520163455, guid: 1d63e583f7e6117419a8a9d9a31be371, type: 3}
   explosionRadius: 3
   explosionPower: 250
-  upwardEffect: 50
+  upwardEffect: 1
   falloff: 1.2
   explosionEnabled: 0
   thrower: {fileID: 0}

@@ -18,6 +18,7 @@ public class PirateController : MonoBehaviour
 
     private LaunchController launchController;
     private Rigidbody2D rb;
+    public HealthBar healthBar;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +53,10 @@ public class PirateController : MonoBehaviour
             launchController.enabled = false;
             throwMode = false;
         }
+        if (Singleton.Instance.turnManager.turnNum == teamNum)
+            transform.position = new Vector3(transform.position.x, transform.position.y, -0.5f);
+        else
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
 
     private void OnDestroy()
@@ -125,6 +130,12 @@ public class PirateController : MonoBehaviour
 
     public void DealExplosionDamage(Vector2 f)
     {
+        // called with force vector representing launch angle
         Debug.Log("Explosion Damage " + gameObject.name + ' ' + f.magnitude);
+
+        healthBar.currentHealth -= f.magnitude;
+        Debug.Log($"Dealt {f.magnitude} damage");
+
+        if (healthBar.currentHealth <= 0) Destroy(gameObject);
     }
 }
