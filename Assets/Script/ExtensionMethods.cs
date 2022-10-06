@@ -16,7 +16,7 @@ public static class ExtensionMethods
         Vector2 posFromBlast = rb.position - position;
         float distFromBlast = posFromBlast.magnitude;
         float actualForce = ActualForce(distFromBlast, force, falloff);
-        Vector2 upwardForce = Vector2.up / 2 * upwardEffect * actualForce;
+        Vector2 upwardForce = actualForce * upwardEffect * Vector2.up;
 
         Vector2 forceVector = rb.GetExplosionForceVector2D(position, force, falloff);
 
