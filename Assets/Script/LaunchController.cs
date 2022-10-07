@@ -50,10 +50,10 @@ public class LaunchController : MonoBehaviour
     private void OnMouseUp()
     {
         if (!enabled || !dragging) return;
-        Launch(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        LaunchFrom(Camera.main.ScreenToWorldPoint(Input.mousePosition));
     }
 
-    public void Launch(Vector3 mousePos)
+    public void LaunchFrom(Vector3 mousePos)
     {
         rb.AddForce(LaunchVelocity(mousePos), ForceMode2D.Impulse);
         rb.gravityScale = gravityScale;
@@ -63,9 +63,9 @@ public class LaunchController : MonoBehaviour
         // if attatched to a bomb make it explodable
         // TODO: this is messy, refactor
         Exploder e = GetComponent<Exploder>();
-        if (e) e.SendMessage("EndLaunch");
+        if (e) e.SendMessage("Launch");
         PirateController p = GetComponent<PirateController>();
-        if (p) p.SendMessage("EndLaunch");
+        if (p) p.SendMessage("Launch");
     }
 
     private void Deselect()

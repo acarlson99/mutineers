@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Exploder : MonoBehaviour
+abstract public class Exploder : MonoBehaviour
 {
+    // send explosion into background
+    public Vector3 spriteOffset = new Vector3(0, 0, 1);
     public Sprite explosionSprite;
     public float explosionRadius = 3f;
     public float explosionPower = 250f;
@@ -15,6 +17,7 @@ public class Exploder : MonoBehaviour
     public bool explosionEnabled = false;
     [HideInInspector]
     public GameObject thrower;
+    public abstract string explosiveName { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -41,15 +44,13 @@ public class Exploder : MonoBehaviour
         OnCollisionEnter2D(collision);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (!explosionEnabled) return;
 
         explosionEnabled = false; // FIXED: prevent double explosion
         Explode(collision.collider.ClosestPoint(transform.position));
     }
-
-    public Vector3 spriteOffset = new Vector3(0, 0, 1);
 
     public void Explode(Vector2 explosionPos)
     {
@@ -77,7 +78,7 @@ public class Exploder : MonoBehaviour
         Destroy(explosionCircle, 1.0f);
     }
 
-    public void EndLaunch()
+    public void Launch()
     {
         explosionEnabled = true;
     }

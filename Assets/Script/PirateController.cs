@@ -85,7 +85,7 @@ public class PirateController : MonoBehaviour
         Singleton.Instance.vcam.Follow = transform;
     }
 
-    public void EndLaunch() { EndPlayerThrow(); }
+    public void Launch() { EndPlayerThrow(); }
     public void EndPlayerThrow()
     {
         if (!Singleton.Instance.turnManager.UpdateState(TurnState.Thrown))

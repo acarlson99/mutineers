@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 0}
-  bombObject: {fileID: 0}
+  bombObject: {fileID: 8493921358440306076, guid: 55f633d3e79e5bc4998339a022680f66, type: 3}
   teamNum: 0
   throwMode: 0
   bombThrowMode: 0

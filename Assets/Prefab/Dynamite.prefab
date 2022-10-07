@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8493921358440306048}
   - component: {fileID: 8493921358440306049}
   - component: {fileID: 8493921358440306055}
-  - component: {fileID: -2376853671730448074}
+  - component: {fileID: 1574074049704423234}
   m_Layer: 12
-  m_Name: Bomb
+  m_Name: Dynamite
   m_TagString: Bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   launchPower: 5
   launchMagnitudeClamp: 2.5
   gravityScale: 0
---- !u!114 &-2376853671730448074
+--- !u!114 &1574074049704423234
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8493921358440306076}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 101aef33b55b4cf48aa121df0b786f20, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b358276ef8e1b541887c6ac8ae5a062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteOffset: {x: 0, y: 0, z: 1}
