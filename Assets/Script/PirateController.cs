@@ -6,7 +6,7 @@ public class PirateController : MonoBehaviour
 {
     // TODO: add health
     public GameObject menu;
-    public GameObject bombObject;
+    //public GameObject bombObject;
     public int teamNum;
 
     [HideInInspector]
@@ -97,7 +97,7 @@ public class PirateController : MonoBehaviour
         Singleton.Instance.vcam.Follow = transform;
     }
 
-    public void BeginBombThrow()
+    public void BeginBombThrow(GameObject bombObject)
     {
         if (!Singleton.Instance.turnManager.UpdateState(TurnState.BombSummoned))
             Debug.LogWarning("EndBombThrow, turnmanager");

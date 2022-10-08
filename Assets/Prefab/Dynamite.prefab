@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 28a3739de9db4254c8cb033e10750820, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.25943398, b: 0.25943398, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -154,9 +154,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteOffset: {x: 0, y: 0, z: 1}
   explosionSprite: {fileID: -2413806693520163455, guid: 1d63e583f7e6117419a8a9d9a31be371, type: 3}
-  explosionRadius: 3
-  explosionPower: 250
+  explosionRadius: 5
+  explosionPower: 400
   upwardEffect: 0.5
   falloff: 1.2
   explosionEnabled: 0
   thrower: {fileID: 0}
+  slowMagnitude: 4
+  timeToExplode: 3

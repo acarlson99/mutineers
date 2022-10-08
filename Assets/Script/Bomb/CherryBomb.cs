@@ -8,14 +8,14 @@ public class CherryBomb : Exploder
     public override string explosiveName { get; set; } = "cherry bomb";
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        //explosiveName = "cherry bomb";
+        base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-
+        base.Update();
     }
 }

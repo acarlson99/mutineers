@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-abstract public class Exploder : MonoBehaviour
+public abstract class Exploder : MonoBehaviour
 {
     // send explosion into background
     public Vector3 spriteOffset = new Vector3(0, 0, 1);
@@ -16,35 +16,36 @@ abstract public class Exploder : MonoBehaviour
     [HideInInspector]
     public bool explosionEnabled = false;
     [HideInInspector]
+    protected Rigidbody2D rb;
+    [HideInInspector]
     public GameObject thrower;
     public abstract string explosiveName { get; set; }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
+        // wake up to enable OnCollisionEnter OnCollisionStay
+        if (rb.IsSleeping()) rb.WakeUp();
     }
 
-    private void OnMouseUp()
-    {
-    }
-
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         if (thrower) thrower.SendMessage("EndBombThrow");
 
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    protected virtual void OnCollisionStay2D(Collision2D collision)
     {
         OnCollisionEnter2D(collision);
     }
 
-    public virtual void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (!explosionEnabled) return;
 
@@ -52,7 +53,7 @@ abstract public class Exploder : MonoBehaviour
         Explode(collision.collider.ClosestPoint(transform.position));
     }
 
-    public void Explode(Vector2 explosionPos)
+    public virtual void Explode(Vector2 explosionPos)
     {
         GameObject explosionCircle = new GameObject("explosion");
         explosionCircle.transform.position = (Vector3)explosionPos + spriteOffset;
@@ -64,7 +65,6 @@ abstract public class Exploder : MonoBehaviour
         var colliders = Physics2D.OverlapCircleAll(explosionPos, explosionRadius);
         foreach (var c in colliders)
         {
-            //if (!c.CompareTag("Player")) continue;
             var rb = c.GetComponent<Rigidbody2D>();
             if (!rb) continue;
             var v = rb.AddExpExplosionForce(explosionPos, explosionPower, upwardEffect, falloff);
@@ -72,13 +72,12 @@ abstract public class Exploder : MonoBehaviour
             var p = c.GetComponent<PirateController>();
             if (!p) continue;
             p.DealExplosionDamage(v);
-            //p.DealExplosionDamage(rb.GetExplosionForceVector2D(explosionPos, explosionPower, falloff));
         }
         Destroy(gameObject);
         Destroy(explosionCircle, 1.0f);
     }
 
-    public void Launch()
+    public virtual void Launch()
     {
         explosionEnabled = true;
     }

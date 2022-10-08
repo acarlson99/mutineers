@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class PlayerMenuController : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class PlayerMenuController : MonoBehaviour
     public GameObject selectedPirate = null;
 
     public GameObject throwButton;
+
+    public GameObject[] Items = { };
 
     // Start is called before the first frame update
     void Start()
@@ -55,12 +59,17 @@ public class PlayerMenuController : MonoBehaviour
         Singleton.Instance.turnManager.selectedBoy = selectedPirate;
     }
 
-    public void SelectedPirateBomb()
+    //public void SelectedPirateBomb()
+    public void SelectedPirateBomb(string name)
     {
+        IEnumerable<GameObject> b = from item in Items
+                                    where item.GetComponent<Exploder>().explosiveName == name
+                                    select item;
+        Assert.AreEqual<int>(b.Count(), 1);
         if (Singleton.Instance.turnManager.turnNum != selectedPirate.GetComponent<PirateController>().teamNum
          || Singleton.Instance.turnManager.state >= TurnState.BombSummoned)
             return;
-        selectedPirate.GetComponent<PirateController>().BeginBombThrow();
+        selectedPirate.GetComponent<PirateController>().BeginBombThrow(b.First());
         Singleton.Instance.turnManager.selectedBoy = selectedPirate;
     }
 

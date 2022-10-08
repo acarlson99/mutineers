@@ -23,7 +23,7 @@ public static class ExtensionMethods
         Vector2 f = forceVector + upwardForce;
         rb.AddForce(f);
 
-        return forceVector;
+        return forceVector + upwardForce;
     }
 
     public static Vector2 GetExplosionForceVector2D(this Rigidbody2D rb, Vector2 position, float force, float falloff)

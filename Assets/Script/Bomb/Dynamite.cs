@@ -4,28 +4,50 @@ using UnityEngine;
 
 public class Dynamite : Exploder
 {
-    private Vector3 lastPosition;
-    public override string explosiveName { get; set; } = "cherry bomb";
+    public override string explosiveName { get; set; } = "dynamite";
+
+    public float slowMagnitude = 4;
+    public float timeToExplode = 3;
+
+    private float slowTime = 0;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        lastPosition = transform.position;
+        // Tick if slow enough or already ticking
+        if (slowTime > 0 || rb.velocity.magnitude <= slowMagnitude)
+        {
+            slowTime += Time.deltaTime;
+        }
+        else
+        {
+            slowTime = 0;
+        }
+        base.Update();
     }
 
-    public override void OnCollisionEnter2D(Collision2D collision)
+    // Explode after duration if slow enough
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        if (transform.position == lastPosition)
+        if (slowTime >= timeToExplode)
         {
-            if (!explosionEnabled) return;
-
-            explosionEnabled = false; // FIXED: prevent double explosion
-            Explode(collision.collider.ClosestPoint(transform.position));
+            base.OnCollisionEnter2D(collision);
         }
+        else
+        {
+            Debug.Log($"{rb.velocity.magnitude} {slowTime} insufficient");
+        }
+    }
+
+    public override void Launch()
+    {
+        slowTime = 0;
+        base.Launch();
     }
 }
