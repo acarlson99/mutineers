@@ -32,6 +32,7 @@ public abstract class Exploder : MonoBehaviour
     {
         // wake up to enable OnCollisionEnter OnCollisionStay
         if (rb.IsSleeping()) rb.WakeUp();
+        GetComponent<LaunchController>()?.DestroyIfOOB();
     }
 
     protected virtual void OnDestroy()
