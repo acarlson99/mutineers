@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PirateController : MonoBehaviour
 {
-    // TODO: add health
     public GameObject menu;
     //public GameObject bombObject;
     public int teamNum;
@@ -139,9 +138,7 @@ public class PirateController : MonoBehaviour
         var pos = transform.position;
         pos.z--;
         fab.transform.position = pos;
-        fab.GetComponent<LaunchController>().gravityScale = fab.GetComponent<Rigidbody2D>().gravityScale;
         fab.GetComponent<LaunchController>().acceptingInput = true;
-        fab.GetComponent<Rigidbody2D>().gravityScale = 0f; // TODO: this is an unsafe way to temporarily disable gravityscale
         fab.GetComponent<Weapon>().thrower = this;
         lastThrown = fab.GetComponent<Weapon>();
 

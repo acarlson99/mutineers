@@ -7,8 +7,6 @@ public static class ExtensionMethods
 {
     public static Vector2 AddExpExplosionForce(this Rigidbody2D rb, Vector2 position, float force, float upwardEffect, float falloff)
     {
-        // TODO: fix this, is kinda janky
-
         //position - where the blast occurs
         //force - how much force would be applied if the object were ontop of the explosion
         //upwardEffect - pushes the object up for a cool effect.
@@ -28,8 +26,6 @@ public static class ExtensionMethods
 
     public static Vector2 GetExplosionForceVector2D(this Rigidbody2D rb, Vector2 position, float force, float falloff)
     {
-        // TODO: fix this, is kinda janky
-
         //position - where the blast occurs
         //force - how much force would be applied if the object were ontop of the explosion
         //upwardEffect - pushes the object up for a cool effect.

@@ -30,6 +30,8 @@ public class CameraEdgePanner : MonoBehaviour
         size = vcam.m_Lens.OrthographicSize;
     }
 
+    // TODO: allow temporary unhook from vcam.Follow
+    //       with snapback after a few seconds of no panning
     private void Update()
     {
         var scroll = Input.GetAxis("Mouse ScrollWheel");
@@ -55,6 +57,7 @@ public class CameraEdgePanner : MonoBehaviour
         vcam.m_Lens.OrthographicSize = size * currentZoom;
         transform.position = new Vector3(pos.x, pos.y, transform.position.z);
 
+        // TODO: likely this should live in TurnManager
         if (Singleton.Instance.turnManager.GetLosingTeam() > -1)
         {
             Invoke(nameof(MainMenu), 2.5f);
