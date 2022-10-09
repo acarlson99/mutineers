@@ -81,5 +81,9 @@ public class Singleton : MonoBehaviour
     void Update()
     {
         turnManager.Update();
+        if (turnManager.selectedBoy == null)
+        {
+            vcam.Follow = null;
+        }
     }
 }
