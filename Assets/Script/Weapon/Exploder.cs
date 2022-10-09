@@ -55,6 +55,7 @@ public abstract class Exploder : Weapon
 
     public override void NotifyOfLaunch(Vector2 velocity)
     {
+        // TODO: merge this var with VoodooDoll.thrown
         explosionEnabled = true;
     }
 }

@@ -29,6 +29,7 @@ public class VoodooDoll : Weapon
 
     public override void NotifyOfLaunch(Vector2 velocity)
     {
+        // TODO: merge this var with Exploder.ExplosionEnabled
         thrown = true;
         slowTime = 0;
         var players = from i in GameObject.FindGameObjectsWithTag("Player")
