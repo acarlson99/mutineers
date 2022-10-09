@@ -7,6 +7,7 @@ public class VoodooDoll : Weapon
 {
     public override string weaponName { get; set; } = "voodoo doll";
 
+    private bool thrown = false;
     private float slowTime = 0;
 
     // Start is called before the first frame update
@@ -18,7 +19,7 @@ public class VoodooDoll : Weapon
     // Update is called once per frame
     protected override void Update()
     {
-        if (rb.velocity.magnitude <= 4)
+        if (thrown && rb.velocity.magnitude <= 4)
         {
             slowTime += Time.deltaTime;
         }
@@ -28,6 +29,7 @@ public class VoodooDoll : Weapon
 
     public override void NotifyOfLaunch(Vector2 velocity)
     {
+        thrown = true;
         slowTime = 0;
         var players = from i in GameObject.FindGameObjectsWithTag("Player")
                       where i.GetComponent<PirateController>().teamNum != thrower.teamNum

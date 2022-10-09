@@ -96,8 +96,8 @@ public class LaunchController : MonoBehaviour
         Vector2 _velocity = LaunchVelocity(relativePos);
         int steps = (int)(Math.Sqrt(_velocity.SqrMagnitude()) * 100);
         List<Vector2> points = PlotTrajectory(gravityScale, rb.drag, (Vector2)transform.position, _velocity, steps);
-        points.Insert(0, ((Vector2)transform.position));
-        points.Insert(0, ((Vector2)transform.position) + (Vector2)relativePos);
+        points.Insert(0, (Vector2)transform.position);
+        points.Insert(0, (Vector2)transform.position + Vector2.ClampMagnitude((Vector2)relativePos, launchMagnitudeClamp));
 
         Singleton.Instance.lineRenderer.positionCount = points.Count;
 
