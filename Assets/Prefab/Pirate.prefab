@@ -105,7 +105,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 8682bc8c015e5504d87d3b55bc7a7bf1, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -119,7 +119,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 7834284635337882085}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 8682bc8c015e5504d87d3b55bc7a7bf1, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -151,6 +151,7 @@ MonoBehaviour:
   launchPower: 5
   launchMagnitudeClamp: 2.5
   gravityScale: 0
+  acceptingInput: 0
 --- !u!114 &1391761321506198763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +165,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 0}
-  bombObject: {fileID: 8493921358440306076, guid: 55f633d3e79e5bc4998339a022680f66, type: 3}
   teamNum: 0
   throwMode: 0
   bombThrowMode: 0

@@ -10,10 +10,11 @@ public class LaunchController : MonoBehaviour
 {
     public float launchPower = 5f;
     public float launchMagnitudeClamp = 2.5f;
-    //public Action deselectCB = () => { };
 
     [HideInInspector]
     public float gravityScale = 0f;
+    [HideInInspector]
+    public bool acceptingInput = false;
 
     private bool dragging = false;
     Rigidbody2D rb;
@@ -30,61 +31,73 @@ public class LaunchController : MonoBehaviour
         // deselect unit on rightclick
         if (Input.GetMouseButton((int)MouseButton.Right))
         {
-            Deselect();
+            StopDragging();
         }
     }
 
     private void OnMouseDown()
     {
-        if (!enabled) return;
+        if (!acceptingInput) return;
         dragging = true;
+    }
+
+    public Vector2 MousePosToRelativePos(Vector3 mousePos)
+    {
+        return (Vector2)Camera.main.ScreenToWorldPoint(mousePos) - rb.position;
     }
 
     private void OnMouseDrag()
     {
-        if (!enabled || !dragging) return;
-        dragging = true;
-        DrawTrajectory(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        if (!acceptingInput || !dragging) return;
+        DrawTrajectory(MousePosToRelativePos(Input.mousePosition));
     }
 
     private void OnMouseUp()
     {
-        if (!enabled || !dragging) return;
-        LaunchFrom(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        if (!acceptingInput || !dragging) return;
+        dragging = false;
+        LaunchWithVelocity(LaunchVelocity(MousePosToRelativePos(Input.mousePosition)));
     }
 
-    public void LaunchFrom(Vector3 mousePos)
+    // launch with velocity 
+    public void LaunchWithVelocity(Vector2 velocity)
     {
-        rb.AddForce(LaunchVelocity(mousePos), ForceMode2D.Impulse);
         rb.gravityScale = gravityScale;
-        Deselect();
-        enabled = false;
+        AddLaunchForce(velocity);
+        // disable input after launched successfully
+        acceptingInput = false;
+        StopDragging();
 
-        // if attatched to a bomb make it explodable
-        // TODO: this is messy, refactor
-        Exploder e = GetComponent<Exploder>();
-        if (e) e.SendMessage("Launch");
+        // notify of launch
+        Weapon e = GetComponent<Weapon>();
+        if (e) e.SendMessage(nameof(e.NotifyOfLaunch), velocity);
         PirateController p = GetComponent<PirateController>();
-        if (p) p.SendMessage("Launch");
+        if (p) p.SendMessage(nameof(p.NotifyOfLaunch), velocity);
     }
 
-    private void Deselect()
+    public void AddLaunchForce(Vector2 velocity)
+    {
+        //Debug.Log("AYAYA");
+        rb.AddForce(velocity, ForceMode2D.Impulse);
+    }
+
+    private void StopDragging()
     {
         dragging = false;
-        //deselectCB();
 #if UNITY_EDITOR
 #else
         Singleton.Instance.lineRenderer.enabled = false;
 #endif
     }
 
-    public void DrawTrajectory(Vector3 mousePos)
+    public void DrawTrajectory(Vector3 relativePos)
     {
         Singleton.Instance.lineRenderer.enabled = true;
-        Vector2 _velocity = LaunchVelocity(mousePos);
+        Vector2 _velocity = LaunchVelocity(relativePos);
         int steps = (int)(Math.Sqrt(_velocity.SqrMagnitude()) * 100);
         List<Vector2> points = PlotTrajectory(gravityScale, rb.drag, (Vector2)transform.position, _velocity, steps);
         points.Insert(0, ((Vector2)transform.position));
+        points.Insert(0, ((Vector2)transform.position) + (Vector2)relativePos);
 
         Singleton.Instance.lineRenderer.positionCount = points.Count;
 
@@ -117,14 +130,14 @@ public class LaunchController : MonoBehaviour
         return results;
     }
 
-    private Vector2 LaunchVelocity(Vector3 mouseWorldPos)
+    // get launch velocity from a relative position
+    // launching from relativePos=(0,-1) with launchPower=2.0f
+    // returns (0,2)
+    // often called LaunchVelocity(MousePosToRelativePos(Input.mousePosition))
+    public Vector2 LaunchVelocity(Vector2 relativePos)
     {
-        if (!rb) return Vector2.zero;
-        Vector2 pos = rb.position;
-        Vector2 v = (Vector2)mouseWorldPos - pos;
-        // TODO: parameterize
-        if (launchMagnitudeClamp != 0) v = Vector2.ClampMagnitude(v, launchMagnitudeClamp);
-        return -v * launchPower;
+        relativePos = Vector2.ClampMagnitude(relativePos, launchMagnitudeClamp);
+        return -relativePos * launchPower;
     }
 
     // FINDME: find this, important
@@ -132,7 +145,7 @@ public class LaunchController : MonoBehaviour
     {
         if (transform.position.y < Singleton.Instance.killzoneY)
         {
-            Deselect();
+            StopDragging();
             Destroy(gameObject);
             return true;
         }

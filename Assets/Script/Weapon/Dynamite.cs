@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Dynamite : Exploder
 {
-    public override string explosiveName { get; set; } = "dynamite";
+    public override string weaponName { get; set; } = "dynamite";
 
     public float slowMagnitude = 4;
     public float timeToExplode = 3;
@@ -39,15 +39,11 @@ public class Dynamite : Exploder
         {
             base.OnCollisionEnter2D(collision);
         }
-        else
-        {
-            Debug.Log($"{rb.velocity.magnitude} {slowTime} insufficient");
-        }
     }
 
-    public override void Launch()
+    public override void NotifyOfLaunch(Vector2 velocity)
     {
         slowTime = 0;
-        base.Launch();
+        base.NotifyOfLaunch(velocity);
     }
 }

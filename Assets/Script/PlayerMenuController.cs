@@ -63,7 +63,7 @@ public class PlayerMenuController : MonoBehaviour
     public void SelectedPirateBomb(string name)
     {
         IEnumerable<GameObject> b = from item in Items
-                                    where item.GetComponent<Exploder>().explosiveName == name
+                                    where item.GetComponent<Weapon>().weaponName == name
                                     select item;
         Assert.AreEqual<int>(b.Count(), 1);
         if (Singleton.Instance.turnManager.turnNum != selectedPirate.GetComponent<PirateController>().teamNum

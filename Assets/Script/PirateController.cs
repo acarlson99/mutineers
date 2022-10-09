@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -14,7 +15,7 @@ public class PirateController : MonoBehaviour
     [HideInInspector]
     public bool bombThrowMode = false;
     [HideInInspector]
-    public Exploder lastThrown = null;
+    public Weapon lastThrown = null;
 
     private LaunchController launchController;
     private Rigidbody2D rb;
@@ -24,7 +25,7 @@ public class PirateController : MonoBehaviour
     void Start()
     {
         launchController = GetComponent<LaunchController>();
-        launchController.enabled = false;
+        launchController.acceptingInput = false;
         rb = GetComponent<Rigidbody2D>();
         //launchController.deselectCB = () =>
         //{
@@ -33,7 +34,11 @@ public class PirateController : MonoBehaviour
         //};
 
         Singleton.Instance.turnManager.PlayerRegister(teamNum);
-        if (teamNum != 0) GetComponent<SpriteRenderer>().flipX = true;
+        if (teamNum != 0)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+            GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 1, 1);
+        }
     }
 
     // Update is called once per frame
@@ -45,24 +50,38 @@ public class PirateController : MonoBehaviour
         launchController.DestroyIfOOB();
         if (throwMode)
         {
-            launchController.enabled = true;
+            launchController.acceptingInput = true;
             bombThrowMode = false;
         }
         if (bombThrowMode)
         {
-            launchController.enabled = false;
+            launchController.acceptingInput = false;
             throwMode = false;
         }
-        if (Singleton.Instance.turnManager.turnNum == teamNum)
-            transform.position = new Vector3(transform.position.x, transform.position.y, -0.5f);
-        else
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+        if (IsActiveTurn())
+        {
+            if (IsSelectedPirate()) transform.position = new Vector3(transform.position.x, transform.position.y, -1);
+            else transform.position = new Vector3(transform.position.x, transform.position.y, -0.5f);
+        }
+        else transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+    }
+
+    public bool IsActiveTurn()
+    {
+        // returns if it is this pirate's team's turn
+        return Singleton.Instance.turnManager.turnNum == teamNum;
+    }
+
+    public bool IsSelectedPirate()
+    {
+        // returns whether turnmanager has selected this pirate
+        return Singleton.Instance.turnManager.selectedBoy == gameObject;
     }
 
     private void OnDestroy()
     {
         Singleton.Instance.turnManager.PlayerUnregister(teamNum);
-        if (Singleton.Instance.turnManager.selectedBoy == gameObject)
+        if (IsSelectedPirate())
         {
             Singleton.Instance.turnManager.UpdateState(TurnState.End);
             Singleton.Instance.vcam.Follow = null;
@@ -71,7 +90,7 @@ public class PirateController : MonoBehaviour
 
     void OnMouseUpAsButton()
     {
-        if (Singleton.Instance.turnManager.turnNum != teamNum) return;
+        if (!IsActiveTurn()) return;
         Debug.Log("Click pirate " + gameObject.name);
         if (throwMode || bombThrowMode) return;
 
@@ -85,14 +104,25 @@ public class PirateController : MonoBehaviour
         Singleton.Instance.vcam.Follow = transform;
     }
 
-    public void Launch() { EndPlayerThrow(); }
+    public void NotifyOfLaunch(Vector2 velocity)
+    {
+        //var players = GameObject.FindGameObjectsWithTag(gameObject.tag);
+        //foreach (var p in players)
+        //{
+        //    if (!(p && p != gameObject)) continue;
+        //    Debug.Log($"Sending message to {p}");
+        //    p.GetComponent<LaunchController>().SendMessage(nameof(p.AddLaunchForce), velocity);
+        //}
+        EndPlayerThrow();
+    }
+
     public void EndPlayerThrow()
     {
         if (!Singleton.Instance.turnManager.UpdateState(TurnState.Thrown))
             Debug.LogWarning("BeginPlayerThrow, turnmanager");
 
         throwMode = false;
-        launchController.enabled = false;
+        launchController.acceptingInput = false;
 
         Singleton.Instance.vcam.Follow = transform;
     }
@@ -100,7 +130,7 @@ public class PirateController : MonoBehaviour
     public void BeginBombThrow(GameObject bombObject)
     {
         if (!Singleton.Instance.turnManager.UpdateState(TurnState.BombSummoned))
-            Debug.LogWarning("EndBombThrow, turnmanager");
+            Debug.LogWarning("EndWeaponUse, turnmanager");
 
         bombThrowMode = true;
 
@@ -110,18 +140,18 @@ public class PirateController : MonoBehaviour
         pos.z--;
         fab.transform.position = pos;
         fab.GetComponent<LaunchController>().gravityScale = fab.GetComponent<Rigidbody2D>().gravityScale;
+        fab.GetComponent<LaunchController>().acceptingInput = true;
         fab.GetComponent<Rigidbody2D>().gravityScale = 0f; // TODO: this is an unsafe way to temporarily disable gravityscale
-        fab.GetComponent<Exploder>().thrower = gameObject;
-        fab.GetComponent<Exploder>().explosionEnabled = false;
-        lastThrown = fab.GetComponent<Exploder>();
+        fab.GetComponent<Weapon>().thrower = this;
+        lastThrown = fab.GetComponent<Weapon>();
 
         Singleton.Instance.vcam.Follow = fab.transform;
     }
 
-    public void EndBombThrow()
+    public void EndWeaponUse()
     {
         if (!Singleton.Instance.turnManager.UpdateState(TurnState.BombThrown))
-            Debug.LogWarning("EndBombThrow, turnmanager");
+            Debug.LogWarning("EndWeaponUse, turnmanager");
 
         bombThrowMode = false;
 

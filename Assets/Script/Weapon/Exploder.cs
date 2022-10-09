@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class Exploder : MonoBehaviour
+public abstract class Exploder : Weapon
 {
     // send explosion into background
-    public Vector3 spriteOffset = new Vector3(0, 0, 1);
+    public Vector3 explosionSpriteOffset = new Vector3(0, 0, 1);
     public Sprite explosionSprite;
     public float explosionRadius = 3f;
     public float explosionPower = 250f;
@@ -15,31 +15,6 @@ public abstract class Exploder : MonoBehaviour
 
     [HideInInspector]
     public bool explosionEnabled = false;
-    [HideInInspector]
-    protected Rigidbody2D rb;
-    [HideInInspector]
-    public GameObject thrower;
-    public abstract string explosiveName { get; set; }
-
-    // Start is called before the first frame update
-    protected virtual void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
-    // Update is called once per frame
-    protected virtual void Update()
-    {
-        // wake up to enable OnCollisionEnter OnCollisionStay
-        if (rb.IsSleeping()) rb.WakeUp();
-        GetComponent<LaunchController>()?.DestroyIfOOB();
-    }
-
-    protected virtual void OnDestroy()
-    {
-        if (thrower) thrower.SendMessage("EndBombThrow");
-
-    }
 
     protected virtual void OnCollisionStay2D(Collision2D collision)
     {
@@ -57,7 +32,7 @@ public abstract class Exploder : MonoBehaviour
     public virtual void Explode(Vector2 explosionPos)
     {
         GameObject explosionCircle = new GameObject("explosion");
-        explosionCircle.transform.position = (Vector3)explosionPos + spriteOffset;
+        explosionCircle.transform.position = (Vector3)explosionPos + explosionSpriteOffset;
         explosionCircle.transform.localScale = new Vector3(explosionRadius * 2, explosionRadius * 2, 1f);
         var spriteRenderer = explosionCircle.AddComponent<SpriteRenderer>();
         spriteRenderer.color = Color.red;
@@ -78,7 +53,7 @@ public abstract class Exploder : MonoBehaviour
         Destroy(explosionCircle, 1.0f);
     }
 
-    public virtual void Launch()
+    public override void NotifyOfLaunch(Vector2 velocity)
     {
         explosionEnabled = true;
     }
