@@ -15,6 +15,13 @@ public abstract class Weapon : MonoBehaviour
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        LaunchController lc = GetComponent<LaunchController>();
+        if (lc)
+        {
+            lc.gravityScale = rb.gravityScale;
+            rb.gravityScale = 0f;
+        }
     }
 
     // Update is called once per frame

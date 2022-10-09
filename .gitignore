@@ -71,5 +71,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-TAGS
-TAGS.meta
+/[Aa]ssets/[Ss]cript/TAGS
+/[Aa]ssets/[Ss]cript/TAGS.meta
