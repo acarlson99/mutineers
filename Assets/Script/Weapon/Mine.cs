@@ -43,25 +43,21 @@ public class Mine : Exploder
         if (!areaTriggerActive) return;
         else triggerArea.SetActive(true);
 
-        if (aboutToExplode)
-        {
-            //spriteRenderer.color = new Color(1f, 0, 0, 0.4f); // TODO: blink
-            return;
-        }
+        if (aboutToExplode) return;
+
         // TODO: likely making the triggerArea a trigger zone would be more efficient
         Collider2D[] objs = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
         foreach (Collider2D o in objs)
         {
-            if (o.gameObject == gameObject)
-            {
-                continue;
-            }
+            if (o.gameObject == gameObject) continue;
+
             var orb = o.GetComponent<Rigidbody2D>();
             if (orb && orb != rb && orb.velocity.magnitude > 1)
             {
                 ExplodeWithDelay(gameObject, 2f);
                 aboutToExplode = true;
                 StartCoroutine(LerpColor(spriteRenderer.color, new Color(1f, 0, 0, 0.75f), 2f / 5, spriteRenderer, true));
+                break;
             }
         }
     }
@@ -84,7 +80,7 @@ public class Mine : Exploder
             time += Time.deltaTime;
             yield return null;
         }
-        if (sprite?.gameObject && repeat) yield return LerpColor(end, start, duration, sprite);
+        if (sprite?.gameObject && repeat) yield return LerpColor(end, start, duration, sprite, repeat);
     }
 
     public override void NotifyOfLaunch(Vector2 velocity)
