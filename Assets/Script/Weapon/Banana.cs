@@ -19,7 +19,6 @@ public class Banana : Exploder
 
         if (Input.GetMouseButtonDown((int)MouseButton.Left) && explosionEnabled)
         {
-            Debug.Log("GOOOOOO");
             Explode(rb.position);
         }
     }

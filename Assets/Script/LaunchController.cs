@@ -87,6 +87,7 @@ public class LaunchController : MonoBehaviour
 #endif
     }
 
+    // TODO: this should take mass into account
     public void DrawTrajectory(Vector3 relativePos)
     {
         Singleton.Instance.lineRenderer.enabled = true;

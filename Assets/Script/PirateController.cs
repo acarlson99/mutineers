@@ -144,6 +144,7 @@ public class PirateController : MonoBehaviour
 
     public void EndWeaponUse()
     {
+        Debug.Log("End weapon use");
         if (!Singleton.Instance.turnManager.UpdateState(TurnState.BombThrown))
             Debug.LogWarning("EndWeaponUse, turnmanager");
 

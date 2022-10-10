@@ -8,13 +8,17 @@ public abstract class Weapon : MonoBehaviour
     public PirateController thrower;
     [HideInInspector]
     protected Rigidbody2D rb;
+    [HideInInspector]
+    protected LaunchController lc;
+    [HideInInspector]
+    protected bool thrown = false;
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
-        LaunchController lc = GetComponent<LaunchController>();
+        lc = GetComponent<LaunchController>();
         if (lc)
         {
             lc.gravityScale = rb.gravityScale;
@@ -32,8 +36,18 @@ public abstract class Weapon : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        if (thrower) thrower.SendMessage(nameof(thrower.EndWeaponUse));
+        NotifyThrowerEndWeaponUse();
     }
 
-    abstract public void NotifyOfLaunch(Vector2 velocity);
+    protected void NotifyThrowerEndWeaponUse()
+    {
+        Debug.Log($"Notifying thrower {thrower}");
+        if (thrower) thrower.SendMessage(nameof(thrower.EndWeaponUse));
+        thrower = null;
+    }
+
+    public virtual void NotifyOfLaunch(Vector2 velocity)
+    {
+        thrown = true;
+    }
 }

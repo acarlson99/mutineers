@@ -5,7 +5,6 @@ public class VoodooDoll : Weapon
 {
     public override string weaponName { get; set; } = "voodoo doll";
 
-    private bool thrown = false;
     private float slowTime = 0;
 
     // Start is called before the first frame update
@@ -28,7 +27,7 @@ public class VoodooDoll : Weapon
     public override void NotifyOfLaunch(Vector2 velocity)
     {
         // TODO: merge this var with Exploder.ExplosionEnabled
-        thrown = true;
+        base.NotifyOfLaunch(velocity);
         slowTime = 0;
         var players = from i in GameObject.FindGameObjectsWithTag("Player")
                       where i.GetComponent<PirateController>().teamNum != thrower.teamNum
