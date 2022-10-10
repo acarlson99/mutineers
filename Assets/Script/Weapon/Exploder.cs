@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class Exploder : Weapon
@@ -50,9 +51,34 @@ public abstract class Exploder : Weapon
         Destroy(explosionCircle, 1.0f);
     }
 
+
+    private IEnumerator _ScheduleExplosion(Vector2 explosionPos, float t)
+    {
+        yield return new WaitForSeconds(t);
+        Explode(explosionPos);
+    }
+    private IEnumerator _ScheduleExplosion(GameObject o, float t)
+    {
+        yield return new WaitForSeconds(t);
+        Explode(o.transform.position);
+    }
+
+    public virtual void ExplodeWithDelay(Vector2 explosionPos, float t)
+    {
+        var coroutine = _ScheduleExplosion(explosionPos, t);
+        StartCoroutine(coroutine);
+    }
+
+    public virtual void ExplodeWithDelay(GameObject o, float t)
+    {
+        var coroutine = _ScheduleExplosion(o, t);
+        StartCoroutine(coroutine);
+    }
+
     public override void NotifyOfLaunch(Vector2 velocity)
     {
         // TODO: merge this var with VoodooDoll.thrown
+        base.NotifyOfLaunch(velocity);
         explosionEnabled = true;
     }
 }
