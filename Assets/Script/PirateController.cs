@@ -1,6 +1,3 @@
-using System.ComponentModel;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class PirateController : MonoBehaviour
