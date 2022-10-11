@@ -93,7 +93,7 @@ public class LaunchController : MonoBehaviour
         Singleton.Instance.lineRenderer.enabled = true;
         Vector2 _velocity = LaunchVelocity(relativePos);
         int steps = (int)(Math.Sqrt(_velocity.SqrMagnitude()) * 100);
-        List<Vector2> points = PlotTrajectory(gravityScale, rb.drag, (Vector2)transform.position, _velocity, steps);
+        List<Vector2> points = PlotTrajectory(rb.mass, gravityScale, rb.drag, (Vector2)transform.position, _velocity, steps);
         points.Insert(0, (Vector2)transform.position);
         points.Insert(0, (Vector2)transform.position + Vector2.ClampMagnitude((Vector2)relativePos, launchMagnitudeClamp));
 
@@ -107,7 +107,7 @@ public class LaunchController : MonoBehaviour
         Singleton.Instance.lineRenderer.SetPositions(positions);
     }
 
-    public List<Vector2> PlotTrajectory(float gravityScale, float rbdrag, Vector2 pos, Vector2 velocity, int steps)
+    public List<Vector2> PlotTrajectory(float mass, float gravityScale, float rbdrag, Vector2 pos, Vector2 velocity, int steps)
     {
         List<Vector2> results = new List<Vector2>();
 
@@ -115,7 +115,7 @@ public class LaunchController : MonoBehaviour
         Vector2 gravityAccel = gravityScale * timestep * timestep * Physics2D.gravity;
 
         float drag = 1f - timestep * rbdrag;
-        Vector2 moveStep = velocity * timestep;
+        Vector2 moveStep = velocity / mass * timestep;
 
         for (int i = 0; i < steps; i++)
         {
