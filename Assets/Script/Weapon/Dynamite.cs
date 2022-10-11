@@ -19,7 +19,7 @@ public class Dynamite : Exploder
     protected override void Update()
     {
         // Tick if slow enough or already ticking
-        if (slowTime > 0 || rb.velocity.magnitude <= slowMagnitude)
+        if (slowTime > 0 || rb.IsMovingSlowly(slowMagnitude))
         {
             slowTime += Time.deltaTime;
         }

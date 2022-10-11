@@ -58,7 +58,9 @@ public class Singleton : MonoBehaviour
 
     public TurnManager turnManager = null;
 
-    public CinemachineVirtualCamera vcam = null;
+    [SerializeField]
+    private CinemachineVirtualCamera vcam = null;
+    public CinemachineVirtualCamera Vcam { get { return vcam; } set { vcam = value; } }
 
     private void Awake()
     {

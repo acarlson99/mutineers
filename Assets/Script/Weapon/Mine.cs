@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // TODO: make mine heavier, increase mass, this requires changes to LaunchController plotTrajectory
@@ -34,7 +33,7 @@ public class Mine : Exploder
 
         if (!thrown) return;
 
-        if (rb.velocity.magnitude <= 0.1)
+        if (rb.IsMovingSlowly(0.1f))
         {
             if (!areaTriggerActive) NotifyThrowerEndWeaponUse(); // first time only
             areaTriggerActive = true;
@@ -56,7 +55,7 @@ public class Mine : Exploder
             {
                 ExplodeWithDelay(gameObject, 2f);
                 aboutToExplode = true;
-                StartCoroutine(LerpColor(spriteRenderer.color, new Color(1f, 0, 0, 0.75f), 2f / 5, spriteRenderer, true));
+                StartCoroutine(spriteRenderer.LerpColor(new Color(1f, 0, 0, 0.75f), 2f / 5, true));
                 break;
             }
         }
@@ -66,21 +65,6 @@ public class Mine : Exploder
     {
         base.OnDestroy();
         Destroy(triggerArea);
-    }
-
-    // https://gamedevbeginner.com/the-right-way-to-lerp-in-unity-with-examples/
-    // TODO: this should not live here
-    IEnumerator LerpColor(Color start, Color end, float duration, SpriteRenderer sprite, bool repeat = false)
-    {
-        float time = 0;
-        while (time < duration)
-        {
-            if (!sprite?.gameObject) break;
-            sprite.color = Color.Lerp(start, end, time / duration);
-            time += Time.deltaTime;
-            yield return null;
-        }
-        if (sprite?.gameObject && repeat) yield return LerpColor(end, start, duration, sprite, repeat);
     }
 
     public override void NotifyOfLaunch(Vector2 velocity)

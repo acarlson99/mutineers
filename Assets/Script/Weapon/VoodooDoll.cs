@@ -1,11 +1,16 @@
-using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class VoodooDoll : Weapon
 {
     public override string weaponName { get; set; } = "voodoo doll";
 
+    public float slowMagnitude = 4;
+    public float timeToDestroy = 3;
+
     private float slowTime = 0;
+
+    private PirateController targetPirate;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -16,29 +21,43 @@ public class VoodooDoll : Weapon
     // Update is called once per frame
     protected override void Update()
     {
-        if (thrown && rb.velocity.magnitude <= 4)
+        base.Update();
+        // FIXME: cleanup, this is janky
+        if (targetPirate == null && Input.GetMouseButtonDown((int)MouseButton.Left))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if (hit.collider != null)
+            {
+                Debug.Log($"{hit} {hit.collider} {hit.rigidbody} {hit.collider.gameObject.name}");
+                PirateController pc = hit.collider?.gameObject?.GetComponent<PirateController>();
+                if (pc) targetPirate = pc;
+            }
+        }
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (targetPirate == null)
+        {
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f);
+            Singleton.Instance.Vcam.Follow = null;
+            lc.acceptingInput = false; // turn off launch input until target selected
+        }
+        else if (!thrown)
+        {
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1);
+            Singleton.Instance.Vcam.Follow = transform;
+            lc.acceptingInput = true;
+        }
+        if (thrown && rb.IsMovingSlowly(slowMagnitude))
         {
             slowTime += Time.deltaTime;
         }
-        base.Update();
-        if (slowTime >= 3) Destroy(gameObject);
+        if (slowTime >= timeToDestroy) Destroy(gameObject);
     }
 
     public override void NotifyOfLaunch(Vector2 velocity)
     {
-        // TODO: merge this var with Exploder.ExplosionEnabled
         base.NotifyOfLaunch(velocity);
         slowTime = 0;
-        var players = from i in GameObject.FindGameObjectsWithTag("Player")
-                      where i.GetComponent<PirateController>().teamNum != thrower.teamNum
-                      select i;
-        // TODO: make this select a single pirate, not every single one
-        GameObject p = null;
-        foreach (GameObject player in players)
-        {
-            p = player;
-            player.GetComponent<LaunchController>().AddLaunchForce(velocity);
-        }
-        Singleton.Instance.vcam.Follow = p.transform;
+        Singleton.Instance.Vcam.Follow = targetPirate.transform;
+        targetPirate.GetComponent<LaunchController>().AddLaunchForce(velocity);
     }
 }

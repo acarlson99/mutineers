@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public static class ExtensionMethods
@@ -37,5 +38,30 @@ public static class ExtensionMethods
     public static float ActualForce(float distFromBlast, float force, float falloff)
     {
         return force * Mathf.Pow(falloff, -distFromBlast);
+    }
+
+    // https://gamedevbeginner.com/the-right-way-to-lerp-in-unity-with-examples/
+    //StartCoroutine(spriteRenderer.LerpColor(spriteRenderer.color, new Color(1f, 0, 0, 0.75f), 2f / 5, spriteRenderer, true));
+    public static IEnumerator LerpColor(this SpriteRenderer sr, Color start, Color end, float duration, bool repeat = false)
+    {
+        float time = 0;
+        while (time < duration)
+        {
+            if (!sr?.gameObject) break;
+            sr.color = Color.Lerp(start, end, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        if (sr?.gameObject && repeat) yield return sr.LerpColor(end, start, duration, repeat);
+    }
+
+    public static IEnumerator LerpColor(this SpriteRenderer sr, Color end, float duration, bool repeat = false)
+    {
+        yield return sr.LerpColor(sr.color, end, duration, repeat);
+    }
+
+    public static bool IsMovingSlowly(this Rigidbody2D rb, float slowMagnitude)
+    {
+        return rb.velocity.magnitude <= slowMagnitude;
     }
 }

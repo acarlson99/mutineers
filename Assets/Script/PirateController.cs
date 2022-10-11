@@ -80,7 +80,7 @@ public class PirateController : MonoBehaviour
         if (IsSelectedPirate())
         {
             Singleton.Instance.turnManager.UpdateState(TurnState.End);
-            Singleton.Instance.vcam.Follow = null;
+            Singleton.Instance.Vcam.Follow = null;
         }
     }
 
@@ -97,7 +97,7 @@ public class PirateController : MonoBehaviour
     {
         throwMode = true;
 
-        Singleton.Instance.vcam.Follow = transform;
+        Singleton.Instance.Vcam.Follow = transform;
     }
 
     public void NotifyOfLaunch(Vector2 velocity)
@@ -120,7 +120,7 @@ public class PirateController : MonoBehaviour
         throwMode = false;
         launchController.acceptingInput = false;
 
-        Singleton.Instance.vcam.Follow = transform;
+        Singleton.Instance.Vcam.Follow = transform;
     }
 
     public void BeginBombThrow(GameObject bombObject)
@@ -139,7 +139,8 @@ public class PirateController : MonoBehaviour
         fab.GetComponent<Weapon>().thrower = this;
         lastThrown = fab.GetComponent<Weapon>();
 
-        Singleton.Instance.vcam.Follow = fab.transform;
+        Debug.Log("Begin bomb throw follow");
+        Singleton.Instance.Vcam.Follow = fab.transform;
     }
 
     public void EndWeaponUse()
@@ -150,7 +151,7 @@ public class PirateController : MonoBehaviour
 
         bombThrowMode = false;
 
-        Singleton.Instance.vcam.Follow = null;
+        Singleton.Instance.Vcam.Follow = null;
     }
 
     public void DealExplosionDamage(Vector2 f)
