@@ -59,6 +59,7 @@ public class CameraEdgePanner : MonoBehaviour
         else if (_f && vcam.Follow == null && stillPos == pos)
         {
             // TODO: fix strange behavior when turn ends while camera is freemoving
+            //       maybe add var to vcam to signal whether it should be in follow mode
             if (timer >= cameraFreemoveResetTime)
             {
                 vcam.Follow = _f;

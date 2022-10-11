@@ -62,6 +62,8 @@ public class Singleton : MonoBehaviour
     private CinemachineVirtualCamera vcam = null;
     public CinemachineVirtualCamera Vcam { get { return vcam; } set { vcam = value; } }
 
+    public bool camFollowMode = false;
+
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -84,5 +86,13 @@ public class Singleton : MonoBehaviour
         {
             vcam.Follow = null;
         }
+    }
+
+    // TODO: add `CamQuietUnsetFollow` function or smth
+    void CamFollow(Transform t)
+    {
+        vcam.Follow = t;
+        if (t == null) camFollowMode = false;
+        else camFollowMode = true;
     }
 }

@@ -74,7 +74,6 @@ public class LaunchController : MonoBehaviour
 
     public void AddLaunchForce(Vector2 velocity)
     {
-        //Debug.Log("AYAYA");
         rb.AddForce(velocity, ForceMode2D.Impulse);
     }
 
@@ -87,7 +86,6 @@ public class LaunchController : MonoBehaviour
 #endif
     }
 
-    // TODO: this should take mass into account
     public void DrawTrajectory(Vector3 relativePos)
     {
         Singleton.Instance.lineRenderer.enabled = true;

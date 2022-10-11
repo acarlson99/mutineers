@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// TODO: make mine heavier, increase mass, this requires changes to LaunchController plotTrajectory
 public class Mine : Exploder
 {
     public override string weaponName { get; set; } = "mine";
@@ -32,7 +31,7 @@ public class Mine : Exploder
 
         if (!thrown) return;
 
-        if (rb.IsMovingSlowly(0.1f))
+        if (rb.IsMovingSlowly(0.05f))
         {
             if (!areaTriggerActive)
             {
