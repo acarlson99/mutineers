@@ -42,6 +42,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: SpriteLayer Under
+    uniqueID: 32475025
+    locked: 0
   - name: SpriteLayer
     uniqueID: 932611769
     locked: 0

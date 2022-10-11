@@ -132,9 +132,7 @@ public class PirateController : MonoBehaviour
 
         var fab = Instantiate(bombObject);
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), fab.GetComponent<Collider2D>());
-        var pos = transform.position;
-        pos.z--;
-        fab.transform.position = pos;
+        fab.transform.position = transform.position - new Vector3(0, 0, 1); // move into foreground
         fab.GetComponent<LaunchController>().acceptingInput = true;
         fab.GetComponent<Weapon>().thrower = this;
         lastThrown = fab.GetComponent<Weapon>();

@@ -51,33 +51,18 @@ public abstract class Exploder : Weapon
         Destroy(explosionCircle, 1.0f);
     }
 
-
-    private IEnumerator _ScheduleExplosion(Vector2 explosionPos, float t)
-    {
-        yield return new WaitForSeconds(t);
-        Explode(explosionPos);
-    }
-    private IEnumerator _ScheduleExplosion(GameObject o, float t)
-    {
-        yield return new WaitForSeconds(t);
-        Explode(o.transform.position);
-    }
-
     public virtual void ExplodeWithDelay(Vector2 explosionPos, float t)
     {
-        var coroutine = _ScheduleExplosion(explosionPos, t);
-        StartCoroutine(coroutine);
+        this.ScheduleFuncall((e) => { Explode(e); return 1; }, explosionPos, t);
     }
 
     public virtual void ExplodeWithDelay(GameObject o, float t)
     {
-        var coroutine = _ScheduleExplosion(o, t);
-        StartCoroutine(coroutine);
+        this.ScheduleFuncall((ob) => { Explode(ob.transform.position); return 1; }, o, t);
     }
 
     public override void NotifyOfLaunch(Vector2 velocity)
     {
-        // TODO: merge this var with VoodooDoll.thrown
         base.NotifyOfLaunch(velocity);
         explosionEnabled = true;
     }

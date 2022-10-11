@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -63,5 +64,17 @@ public static class ExtensionMethods
     public static bool IsMovingSlowly(this Rigidbody2D rb, float slowMagnitude)
     {
         return rb.velocity.magnitude <= slowMagnitude;
+    }
+
+    private static IEnumerator _scheduleFuncall<T>(Func<T, int> f, T param, float t)
+    {
+        yield return new WaitForSeconds(t);
+        f(param);
+    }
+
+    public static void ScheduleFuncall<T>(this MonoBehaviour mb, Func<T, int> f, T param, float t)
+    {
+        var coroutine = _scheduleFuncall(f, param, t);
+        mb.StartCoroutine(coroutine);
     }
 }

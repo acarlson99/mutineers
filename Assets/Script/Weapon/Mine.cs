@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 // TODO: make mine heavier, increase mass, this requires changes to LaunchController plotTrajectory
@@ -35,7 +34,12 @@ public class Mine : Exploder
 
         if (rb.IsMovingSlowly(0.1f))
         {
-            if (!areaTriggerActive) NotifyThrowerEndWeaponUse(); // first time only
+            if (!areaTriggerActive)
+            {
+                NotifyThrowerEndWeaponUse(); // first time only
+                // TODO: refactor sprite rendering layers
+                transform.position = transform.position + new Vector3(0, 0, 1f);
+            }
             areaTriggerActive = true;
         }
 

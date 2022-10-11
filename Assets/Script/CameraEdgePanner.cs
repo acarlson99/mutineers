@@ -10,6 +10,7 @@ public class CameraEdgePanner : MonoBehaviour
     public float maxZoom = 2;
     public float panSpeed = 20f;
     public float panMargin = 30f;
+    public float cameraFreemoveResetTime = 2f;
     public GameObject winCanvas;
     //public BoxCollider2D boundingBox;
 
@@ -18,6 +19,9 @@ public class CameraEdgePanner : MonoBehaviour
     private CinemachineVirtualCamera vcam;
     private float size;
     private Vector2 pos;
+    private Transform _f;
+    private float timer;
+    private Vector2 stillPos;
 
     private void Start()
     {
@@ -25,8 +29,6 @@ public class CameraEdgePanner : MonoBehaviour
         size = vcam.m_Lens.OrthographicSize;
     }
 
-    // TODO: allow temporary unhook from vcam.Follow
-    //       with snapback after a few seconds of no panning
     private void Update()
     {
         var scroll = Input.GetAxis("Mouse ScrollWheel");
@@ -36,14 +38,38 @@ public class CameraEdgePanner : MonoBehaviour
             currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
         }
         static bool inRange(float a, float b, float c) => a <= b && b <= c;
-        //pos = (Vector2)transform.position;
-        pos = Camera.main.transform.position; // set pos to current cam pos to avoid pos infinitely scrolling
+        pos = (Vector2)Camera.main.transform.position; // set pos to current cam pos (not vcam) to avoid pos infinitely scrolling
         if (inRange(0, Input.mousePosition.x, Screen.width) && inRange(0, Input.mousePosition.y, Screen.height))
         {
             if (inRange(Screen.height - panMargin, Input.mousePosition.y, Screen.height)) pos.y += Time.deltaTime * panSpeed;
             if (inRange(Screen.width - panMargin, Input.mousePosition.x, Screen.width)) pos.x += Time.deltaTime * panSpeed;
             if (inRange(0, Input.mousePosition.y, panMargin)) pos.y -= Time.deltaTime * panSpeed;
             if (inRange(0, Input.mousePosition.x, panMargin)) pos.x -= Time.deltaTime * panSpeed;
+        }
+
+        if (pos != (Vector2)Camera.main.transform.position)
+        {
+            if (vcam.Follow != null)
+            {
+                _f = vcam.Follow;
+                vcam.Follow = null;
+                timer = 0;
+            }
+        }
+        else if (_f && vcam.Follow == null && stillPos == pos)
+        {
+            // TODO: fix strange behavior when turn ends while camera is freemoving
+            if (timer >= cameraFreemoveResetTime)
+            {
+                vcam.Follow = _f;
+                _f = null;
+            }
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            timer = 0f;
+            stillPos = pos;
         }
     }
 
