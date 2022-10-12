@@ -14,14 +14,10 @@ public class CameraEdgePanner : MonoBehaviour
     public GameObject winCanvas;
     //public BoxCollider2D boundingBox;
 
-    //public Vector2 minBound = new Vector2(-10f, -10f);
-    //public Vector2 maxBound = new Vector2(10f, 10f);
     private CinemachineVirtualCamera vcam;
     private float size;
     private Vector2 pos;
-    private Transform _f;
     private float timer;
-    private Vector2 stillPos;
 
     private void Start()
     {
@@ -47,30 +43,15 @@ public class CameraEdgePanner : MonoBehaviour
             if (inRange(0, Input.mousePosition.x, panMargin)) pos.x -= Time.deltaTime * panSpeed;
         }
 
-        if (pos != (Vector2)Camera.main.transform.position)
+        if (pos == (Vector2)Camera.main.transform.position)
         {
-            if (vcam.Follow != null)
-            {
-                _f = vcam.Follow;
-                vcam.Follow = null;
-                timer = 0;
-            }
-        }
-        else if (_f && vcam.Follow == null && stillPos == pos)
-        {
-            // TODO: fix strange behavior when turn ends while camera is freemoving
-            //       maybe add var to vcam to signal whether it should be in follow mode
-            if (timer >= cameraFreemoveResetTime)
-            {
-                vcam.Follow = _f;
-                _f = null;
-            }
             timer += Time.deltaTime;
+            if (timer >= cameraFreemoveResetTime) Singleton.Instance.CamQuietRefollow();
         }
-        else
+        else if (pos != (Vector2)Camera.main.transform.position)
         {
-            timer = 0f;
-            stillPos = pos;
+            timer = 0;
+            if (vcam.Follow) Singleton.Instance.CamQuietUnfollow();
         }
     }
 

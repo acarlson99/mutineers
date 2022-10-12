@@ -37,13 +37,13 @@ public class VoodooDoll : Weapon
         if (targetPirate == null)
         {
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f);
-            Singleton.Instance.Vcam.Follow = null;
+            Singleton.Instance.CamFollow(null);
             lc.acceptingInput = false; // turn off launch input until target selected
         }
         else if (!thrown)
         {
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1);
-            Singleton.Instance.Vcam.Follow = transform;
+            Singleton.Instance.CamFollow(transform);
             lc.acceptingInput = true;
         }
         if (thrown && rb.IsMovingSlowly(slowMagnitude))
@@ -57,7 +57,7 @@ public class VoodooDoll : Weapon
     {
         base.NotifyOfLaunch(velocity);
         slowTime = 0;
-        Singleton.Instance.Vcam.Follow = targetPirate.transform;
+        Singleton.Instance.CamFollow(targetPirate.transform);
         targetPirate.GetComponent<LaunchController>().AddLaunchForce(velocity);
     }
 }

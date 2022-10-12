@@ -18,6 +18,7 @@ public class TurnManager
             turnNum %= 2;
             state = TurnState.Start;
             selectedBoy = null;
+            Singleton.Instance.CamFollow(null);
         }
     }
 
@@ -88,11 +89,27 @@ public class Singleton : MonoBehaviour
         }
     }
 
-    // TODO: add `CamQuietUnsetFollow` function or smth
-    void CamFollow(Transform t)
+    public void CamFollow(Transform t)
     {
         vcam.Follow = t;
         if (t == null) camFollowMode = false;
         else camFollowMode = true;
+        _f = null;
+    }
+
+    public Transform _f;
+
+    public void CamQuietUnfollow()
+    {
+        if (!camFollowMode || vcam.Follow == null) return;
+        _f = vcam.Follow;
+        vcam.Follow = null;
+    }
+
+    public void CamQuietRefollow()
+    {
+        if (!camFollowMode || _f == null) return;
+        vcam.Follow = _f;
+        _f = null;
     }
 }
