@@ -143,6 +143,8 @@ public class LaunchController : MonoBehaviour
         {
             StopDragging();
             Destroy(gameObject);
+            Weapon w = GetComponent<Weapon>();
+            if (w != null) w.NotifyThrowerEndWeaponUse();
             return true;
         }
         return false;

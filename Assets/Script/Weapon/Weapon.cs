@@ -37,14 +37,7 @@ public abstract class Weapon : MonoBehaviour
         GetComponent<LaunchController>()?.DestroyIfOOB();
     }
 
-    // FIXME: this should NOT be called in OnDestroy
-    // TODO: just call NotifyThrowerEndWeapon when object would be destroyed
-    protected virtual void OnDestroy()
-    {
-        NotifyThrowerEndWeaponUse();
-    }
-
-    protected void NotifyThrowerEndWeaponUse()
+    public void NotifyThrowerEndWeaponUse()
     {
         Debug.Log($"Notifying thrower {thrower}");
         thrower?.EndWeaponUse();

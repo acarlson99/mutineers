@@ -50,7 +50,11 @@ public class VoodooDoll : Weapon
         {
             slowTime += Time.deltaTime;
         }
-        if (slowTime >= timeToDestroy) Destroy(gameObject);
+        if (slowTime >= timeToDestroy)
+        {
+            NotifyThrowerEndWeaponUse();
+            Destroy(gameObject);
+        }
     }
 
     public override void NotifyOfLaunch(Vector2 velocity)

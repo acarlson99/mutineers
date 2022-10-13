@@ -7,6 +7,7 @@ public class WeaponController : MonoBehaviour
     public WeaponController() { }
 
     PirateController p;
+    GameObject pgo;
     Weapon w;
     int n;
     int nSum;  // num summoned
@@ -15,11 +16,18 @@ public class WeaponController : MonoBehaviour
 
     public void Update()
     {
-        if (p && (p.gameObject == null || p.gameObject.IsDestroyed()))
+        if (n > 0 && pgo.IsDestroyed())
         {
+            // TODO: move EndWeaponUse and OnDestroy UpdateState calls from PirateController to this class
+            Singleton.Instance.CamFollow(null);
             p = null;
-            Destroy(w);
+            pgo = null;
+            Destroy(lastThrown);
             w = null;
+            lastThrown = null;
+            n = 0;
+            nSum = 0;
+            nDest = 0;
             return;
         }
         if (lastThrown != null)
@@ -35,6 +43,7 @@ public class WeaponController : MonoBehaviour
     {
         p = pirate;
         p.BeginBombThrow(weapon.gameObject);
+        pgo = p.gameObject;
         Debug.Log("Begin weapon use");
         w = weapon;
         nSum = 0;
@@ -46,6 +55,7 @@ public class WeaponController : MonoBehaviour
 
     private void summonWeapon()
     {
+        Debug.Log($"Summon weapon {p} {w} {p.gameObject} {p.gameObject.IsDestroyed()}");
         nSum++;
         if (nSum > n)
         {

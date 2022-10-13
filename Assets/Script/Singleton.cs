@@ -24,6 +24,7 @@ public class TurnManager
 
     public bool UpdateState(TurnState s)
     {
+        Debug.Log($"Update state {state} to {s}");
         if (s <= state) return false;
         state = s;
         if (state == TurnState.End) selectedBoy = null;

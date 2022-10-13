@@ -64,9 +64,8 @@ public class Mine : Exploder
         }
     }
 
-    protected override void OnDestroy()
+    protected void OnDestroy()
     {
-        base.OnDestroy();
         Destroy(triggerArea);
     }
 

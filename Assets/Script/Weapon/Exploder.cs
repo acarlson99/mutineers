@@ -49,6 +49,7 @@ public abstract class Exploder : Weapon
         }
         Destroy(gameObject);
         Destroy(explosionCircle, 1.0f);
+        NotifyThrowerEndWeaponUse();
     }
 
     public virtual void ExplodeWithDelay(Vector2 explosionPos, float t)
