@@ -23,11 +23,6 @@ public class PirateController : MonoBehaviour
         launchController = GetComponent<LaunchController>();
         launchController.acceptingInput = false;
         rb = GetComponent<Rigidbody2D>();
-        //launchController.deselectCB = () =>
-        //{
-        //    launchController.enabled = false;
-        //    throwMode = false;
-        //};
 
         Singleton.Instance.turnManager.PlayerRegister(teamNum);
         if (teamNum != 0)
@@ -102,13 +97,6 @@ public class PirateController : MonoBehaviour
 
     public void NotifyOfLaunch(Vector2 velocity)
     {
-        //var players = GameObject.FindGameObjectsWithTag(gameObject.tag);
-        //foreach (var p in players)
-        //{
-        //    if (!(p && p != gameObject)) continue;
-        //    Debug.Log($"Sending message to {p}");
-        //    p.GetComponent<LaunchController>().SendMessage(nameof(p.AddLaunchForce), velocity);
-        //}
         EndPlayerThrow();
     }
 
@@ -129,16 +117,6 @@ public class PirateController : MonoBehaviour
             Debug.LogWarning("EndWeaponUse, turnmanager");
 
         bombThrowMode = true;
-
-        var fab = Instantiate(bombObject);
-        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), fab.GetComponent<Collider2D>());
-        fab.transform.position = transform.position - new Vector3(0, 0, 1); // move into foreground
-        fab.GetComponent<LaunchController>().acceptingInput = true;
-        fab.GetComponent<Weapon>().thrower = this;
-        lastThrown = fab.GetComponent<Weapon>();
-
-        Debug.Log("Begin bomb throw follow");
-        Singleton.Instance.CamFollow(fab.transform);
     }
 
     public void EndWeaponUse()
@@ -148,8 +126,6 @@ public class PirateController : MonoBehaviour
             Debug.LogWarning("EndWeaponUse, turnmanager");
 
         bombThrowMode = false;
-
-        Singleton.Instance.CamFollow(null);
     }
 
     public void DealExplosionDamage(Vector2 f)

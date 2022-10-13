@@ -58,6 +58,7 @@ public class Singleton : MonoBehaviour
     public LineRenderer lineRenderer;
 
     public TurnManager turnManager = null;
+    public WeaponController weaponController;
 
     [SerializeField]
     private CinemachineVirtualCamera vcam = null;
@@ -76,6 +77,7 @@ public class Singleton : MonoBehaviour
         {
             Instance = this;
             turnManager = new TurnManager();
+            weaponController = gameObject.AddComponent<WeaponController>();
         }
     }
 

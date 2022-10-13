@@ -68,7 +68,9 @@ public class PlayerMenuController : MonoBehaviour
         if (Singleton.Instance.turnManager.turnNum != selectedPirate.GetComponent<PirateController>().teamNum
          || Singleton.Instance.turnManager.state >= TurnState.BombSummoned)
             return;
-        selectedPirate.GetComponent<PirateController>().BeginBombThrow(b.First());
+        //selectedPirate.GetComponent<PirateController>().BeginBombThrow(b.First(), n);
+        var w = b.First().GetComponent<Weapon>();
+        Singleton.Instance.weaponController.BeginWeaponUse(selectedPirate.GetComponent<PirateController>(), w, w.weaponCount);
         Singleton.Instance.turnManager.selectedBoy = selectedPirate;
     }
 
