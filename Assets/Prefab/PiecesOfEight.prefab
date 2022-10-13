@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8493921358440306048}
   - component: {fileID: 8493921358440306049}
   - component: {fileID: 8493921358440306055}
-  - component: {fileID: -7999013201702060584}
+  - component: {fileID: 7449860469849641674}
   m_Layer: 12
   m_Name: PiecesOfEight
   m_TagString: Bomb
@@ -141,7 +141,7 @@ MonoBehaviour:
   launchMagnitudeClamp: 2.5
   gravityScale: 0
   acceptingInput: 0
---- !u!114 &-7999013201702060584
+--- !u!114 &7449860469849641674
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

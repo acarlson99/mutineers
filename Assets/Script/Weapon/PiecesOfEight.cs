@@ -4,6 +4,11 @@ public class PiecesOfEight : Exploder
     public override string weaponName { get; set; } = "pieces of eight";
     // TODO: set weapon count to 8 here
 
+    public PiecesOfEight()
+    {
+        weaponCount = 8;
+    }
+
     // Start is called before the first frame update
     protected override void Start()
     {
