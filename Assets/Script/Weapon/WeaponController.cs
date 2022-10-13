@@ -63,9 +63,11 @@ public class WeaponController : MonoBehaviour
             return;
         }
         var fab = Instantiate(w.gameObject);
-        Physics2D.IgnoreCollision(p.GetComponent<Collider2D>(), fab.GetComponent<Collider2D>());
+        if (w.GetComponent<LaunchController>())
+            Physics2D.IgnoreCollision(p.GetComponent<Collider2D>(), fab.GetComponent<Collider2D>());
         fab.transform.position = p.transform.position - new Vector3(0, 0, 1); // move into foreground
-        fab.GetComponent<LaunchController>().acceptingInput = true;
+        var lc = fab.GetComponent<LaunchController>();
+        if (lc) lc.acceptingInput = true;
         fab.GetComponent<Weapon>().thrower = this;
         //lastThrown = fab.GetComponent<Weapon>();
         lastThrown = fab;

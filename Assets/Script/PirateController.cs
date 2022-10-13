@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PirateController : MonoBehaviour
+public class PirateController : MonoBehaviour, IExplodable
 {
     public GameObject menu;
     //public GameObject bombObject;

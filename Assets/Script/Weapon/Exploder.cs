@@ -43,8 +43,8 @@ public abstract class Exploder : Weapon
             if (!rb) continue;
             var v = rb.AddExpExplosionForce(explosionPos, explosionPower, upwardEffect, falloff);
 
-            var p = c.GetComponent<PirateController>();
-            if (!p) continue;
+            var p = c.GetComponent<IExplodable>();
+            if (p == null) continue;
             p.DealExplosionDamage(v);
         }
         Destroy(gameObject);
