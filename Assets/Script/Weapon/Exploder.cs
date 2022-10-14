@@ -11,7 +11,6 @@ public abstract class Exploder : Weapon
     public float upwardEffect = 1; // send upwards for effect (0 to disable)
     public float falloff = 1.2f; // explosion power weakens at distance
 
-    [HideInInspector]
     public bool explosionEnabled = false;
     private bool hasExploded = false;
 

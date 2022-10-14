@@ -32,10 +32,14 @@ public abstract class Weapon : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (!thrown) GetComponent<Collider2D>().isTrigger = true;
-        else GetComponent<Collider2D>().isTrigger = false;
+        var collider = GetComponent<Collider2D>();
+        if (collider)
+        {
+            if (!thrown) collider.isTrigger = true;
+            else collider.isTrigger = false;
+        }
         // wake up to enable OnCollisionEnter OnCollisionStay
-        if (rb.IsSleeping()) rb.WakeUp();
+        if (rb && rb.IsSleeping()) rb.WakeUp();
         GetComponent<LaunchController>()?.DestroyIfOOB();
     }
 
