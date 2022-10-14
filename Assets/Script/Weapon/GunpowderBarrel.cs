@@ -1,6 +1,8 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
+// TODO: silhouette of where box would be placed
+// TODO: dont allow placement inside another rigidbody
 public class GunpowderBarrel : Exploder, IExplodable
 {
     public override string weaponName { get; set; } = "gunpowder barrel";
