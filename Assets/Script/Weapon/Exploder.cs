@@ -13,6 +13,7 @@ public abstract class Exploder : Weapon
 
     [HideInInspector]
     public bool explosionEnabled = false;
+    private bool hasExploded = false;
 
     protected virtual void OnCollisionStay2D(Collision2D collision)
     {
@@ -22,13 +23,15 @@ public abstract class Exploder : Weapon
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (!explosionEnabled) return;
-
-        explosionEnabled = false; // FIXED: prevent double explosion
+        explosionEnabled = false;
         Explode(collision.collider.ClosestPoint(transform.position));
     }
 
     public virtual void Explode(Vector2 explosionPos)
     {
+        if (hasExploded) return;
+        hasExploded = true; // FIXED: prevent double explosion
+
         GameObject explosionCircle = new GameObject("explosion");
         explosionCircle.transform.position = (Vector3)explosionPos + explosionSpriteOffset;
         explosionCircle.transform.localScale = new Vector3(explosionRadius * 2, explosionRadius * 2, 1f);
@@ -39,6 +42,7 @@ public abstract class Exploder : Weapon
         var colliders = Physics2D.OverlapCircleAll(explosionPos, explosionRadius);
         foreach (var c in colliders)
         {
+            if (c.gameObject == gameObject) continue; // no explode self
             var rb = c.GetComponent<Rigidbody2D>();
             if (!rb) continue;
             var v = rb.AddExpExplosionForce(explosionPos, explosionPower, upwardEffect, falloff);

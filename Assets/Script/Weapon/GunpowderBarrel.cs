@@ -1,9 +1,9 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Crate : Weapon, IExplodable
+public class GunpowderBarrel : Exploder, IExplodable
 {
-    public override string weaponName { get; set; } = "crate";
+    public override string weaponName { get; set; } = "gunpowder barrel";
 
     // Start is called before the first frame update
     protected override void Start()
@@ -31,13 +31,18 @@ public class Crate : Weapon, IExplodable
         }
     }
 
+    protected override void OnCollisionEnter2D(Collision2D collision) { }
+
     public override void NotifyOfLaunch(Vector2 velocity)
     {
         base.NotifyOfLaunch(velocity);
+        explosionEnabled = false; // SMELL: resetting var set in previous call
     }
 
     public void DealExplosionDamage(Vector2 f)
     {
-        Destroy(gameObject);
+        Debug.Log($"Explode from {f}");
+        explosionEnabled = true;
+        Explode(transform.position);
     }
 }
