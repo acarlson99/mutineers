@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -8290438720263573336}
   m_Layer: 12
   m_Name: Mine
-  m_TagString: Bomb
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df014c7f404ba3a459bc020975ada7ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponCount: 1
   thrower: {fileID: 0}
   explosionSpriteOffset: {x: 0, y: 0, z: 1}
   explosionSprite: {fileID: -2413806693520163455, guid: 1d63e583f7e6117419a8a9d9a31be371, type: 3}

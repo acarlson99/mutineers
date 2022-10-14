@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 294974636285082018}
   m_Layer: 12
   m_Name: ParachuteBomb
-  m_TagString: Bomb
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -278,7 +278,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 932611769
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 28a3739de9db4254c8cb033e10750820, type: 3}
   m_Color: {r: 0.35555357, g: 0.43415475, b: 0.8867924, a: 1}
@@ -356,6 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11cd213e77118ba41ab823a741b0c07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponCount: 1
   thrower: {fileID: 0}
   explosionSpriteOffset: {x: 0, y: 0, z: 1}
   explosionSprite: {fileID: -2413806693520163455, guid: 1d63e583f7e6117419a8a9d9a31be371, type: 3}

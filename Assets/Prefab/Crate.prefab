@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3349666950559752725}
   m_Layer: 0
   m_Name: Crate
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,5 +148,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponCount: 3
   thrower: {fileID: 0}
-  slowMagnitude: 0.1
-  timeToSlow: 3

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7449860469849641674}
   m_Layer: 12
   m_Name: PiecesOfEight
-  m_TagString: Bomb
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

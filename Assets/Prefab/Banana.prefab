@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2741320731600788480}
   m_Layer: 12
   m_Name: Banana
-  m_TagString: Bomb
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 932611769
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 43dbfef4da81c1f4c84177a72f7c7147, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8f6e304e7a23744bf2c434b315827d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponCount: 1
   thrower: {fileID: 0}
   explosionSpriteOffset: {x: 0, y: 0, z: 1}
   explosionSprite: {fileID: -2413806693520163455, guid: 1d63e583f7e6117419a8a9d9a31be371, type: 3}
@@ -180,3 +181,5 @@ MonoBehaviour:
   upwardEffect: 0.5
   falloff: 1.2
   explosionEnabled: 0
+  slowMagnitude: 4
+  timeToExplode: 3
