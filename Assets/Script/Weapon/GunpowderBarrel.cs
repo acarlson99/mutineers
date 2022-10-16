@@ -31,6 +31,10 @@ public class GunpowderBarrel : Exploder, IExplodable
             thrown = true;
             return;
         }
+        else if (!thrown)
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision) { }
@@ -39,10 +43,12 @@ public class GunpowderBarrel : Exploder, IExplodable
     {
         base.NotifyOfLaunch(velocity);
         explosionEnabled = false; // SMELL: resetting var set in previous call
+        gameObject.layer = LayerMask.NameToLayer("Default"); // default layer when thrown, otherwise bomb layer
     }
 
     public void DealExplosionDamage(Vector2 f)
     {
+        if (!thrown) return;
         Debug.Log($"Explode from {f}");
         explosionEnabled = true;
         Explode(transform.position);

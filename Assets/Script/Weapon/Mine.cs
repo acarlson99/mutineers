@@ -54,7 +54,7 @@ public class Mine : Exploder
             if (o.gameObject == gameObject) continue;
 
             var orb = o.GetComponent<Rigidbody2D>();
-            if (orb && orb != rb && orb.velocity.magnitude > 1)
+            if (orb && orb != rb && !orb.IsMovingSlowly(0.5f))
             {
                 ExplodeWithDelay(gameObject, 2f);
                 aboutToExplode = true;

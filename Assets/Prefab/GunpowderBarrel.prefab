@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8493921358440306048}
   - component: {fileID: 5551777611175251482}
   - component: {fileID: 248239844322506291}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GunpowderBarrel
   m_TagString: Weapon
   m_Icon: {fileID: 0}

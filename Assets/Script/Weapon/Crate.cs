@@ -29,15 +29,22 @@ public class Crate : Weapon, IExplodable
             thrown = true;
             return;
         }
+        else if (!thrown)
+        {
+            rb.velocity = Vector2.zero;
+        }
+
     }
 
     public override void NotifyOfLaunch(Vector2 velocity)
     {
         base.NotifyOfLaunch(velocity);
+        gameObject.layer = LayerMask.NameToLayer("Default"); // default layer when thrown, otherwise bomb layer
     }
 
     public void DealExplosionDamage(Vector2 f)
     {
+        if (!thrown) return;
         Destroy(gameObject);
     }
 }
