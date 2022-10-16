@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+// TODO: killing throwing pirate with a seagull is buggy (instantly destroys seagull)
 public class Seagull : Weapon
 {
     public override string weaponName { get; set; } = "seagull";
@@ -25,7 +26,7 @@ public class Seagull : Weapon
         {
             NotifyOfLaunch(Vector2.zero);
             var mPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = new Vector3(-maxX, mPos.y, transform.position.z);
+            transform.position = new Vector3(mPos.x, mPos.y, transform.position.z);
         }
 
         if (Input.GetMouseButtonDown((int)MouseButton.Left))
@@ -36,7 +37,7 @@ public class Seagull : Weapon
             frb.AddForce(new Vector3(speed, 0, 0), ForceMode2D.Impulse);
         }
         transform.position = transform.position + new Vector3(speed, 0, 0) * Time.deltaTime;
-        if (transform.position.y >= maxX)
+        if (transform.position.x >= maxX)
         {
             NotifyThrowerEndWeaponUse();
             Destroy(gameObject);
