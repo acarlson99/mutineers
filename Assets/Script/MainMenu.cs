@@ -35,4 +35,9 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void DocRedir()
+    {
+        Application.OpenURL("./TODO.html");
+    }
 }
