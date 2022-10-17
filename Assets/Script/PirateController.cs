@@ -23,13 +23,20 @@ public class PirateController : MonoBehaviour, IExplodable
         launchController = GetComponent<LaunchController>();
         launchController.acceptingInput = false;
         rb = GetComponent<Rigidbody2D>();
+        PriateSpriteInit();
 
         Singleton.Instance.turnManager.PlayerRegister(teamNum);
+    }
+
+    [ContextMenu("Pirate Sprite Init")]
+    void PriateSpriteInit()
+    {
         if (teamNum != 0)
         {
             GetComponent<SpriteRenderer>().flipX = true;
             GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 1, 1);
         }
+
     }
 
     // Update is called once per frame
@@ -128,14 +135,15 @@ public class PirateController : MonoBehaviour, IExplodable
         bombThrowMode = false;
     }
 
-    public void DealExplosionDamage(Vector2 f)
+    public void DealExplosionDamage(Vector2 f, float damageMultiplier)
     {
         // called with force vector representing launch angle
         Debug.Log("Explosion Damage " + gameObject.name + ' ' + f.magnitude);
 
-        healthBar.currentHealth -= f.magnitude;
+        healthBar.currentHealth -= f.magnitude * damageMultiplier;
         Debug.Log($"Dealt {f.magnitude} damage");
 
         if (healthBar.currentHealth <= 0) Destroy(gameObject);
+
     }
 }

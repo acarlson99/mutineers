@@ -46,11 +46,11 @@ public class GunpowderBarrel : Exploder, IExplodable
         gameObject.layer = LayerMask.NameToLayer("Default"); // default layer when thrown, otherwise bomb layer
     }
 
-    public void DealExplosionDamage(Vector2 f)
+    public void DealExplosionDamage(Vector2 f, float damageMultiplier)
     {
         if (!thrown) return;
         Debug.Log($"Explode from {f}");
         explosionEnabled = true;
-        Explode(transform.position);
+        ExplodeAndDestroy(transform.position);
     }
 }

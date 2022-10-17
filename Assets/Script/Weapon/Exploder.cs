@@ -10,6 +10,7 @@ public abstract class Exploder : Weapon
     public float explosionPower = 250f;
     public float upwardEffect = 1; // send upwards for effect (0 to disable)
     public float falloff = 1.2f; // explosion power weakens at distance
+    public float damageMultiplier = 1;
 
     public bool explosionEnabled = false;
     private bool hasExploded = false;
@@ -22,22 +23,18 @@ public abstract class Exploder : Weapon
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (!explosionEnabled) return;
-        explosionEnabled = false;
-        Explode(collision.collider.ClosestPoint(transform.position));
+        ExplodeAndDestroy(collision.collider.ClosestPoint(transform.position));
     }
 
     public virtual void Explode(Vector2 explosionPos)
     {
         if (hasExploded) return;
         hasExploded = true; // FIXED: prevent double explosion
+        ExplodeAt(explosionPos);
+    }
 
-        GameObject explosionCircle = new GameObject("explosion");
-        explosionCircle.transform.position = (Vector3)explosionPos + explosionSpriteOffset;
-        explosionCircle.transform.localScale = new Vector3(explosionRadius * 2, explosionRadius * 2, 1f);
-        var spriteRenderer = explosionCircle.AddComponent<SpriteRenderer>();
-        spriteRenderer.color = Color.red;
-        spriteRenderer.sprite = explosionSprite;
-
+    public virtual void ExplodeAt(Vector2 explosionPos)
+    {
         var colliders = Physics2D.OverlapCircleAll(explosionPos, explosionRadius);
         foreach (var c in colliders)
         {
@@ -48,21 +45,36 @@ public abstract class Exploder : Weapon
 
             var p = c.GetComponent<IExplodable>();
             if (p == null) continue;
-            p.DealExplosionDamage(v);
+            p.DealExplosionDamage(v, damageMultiplier);
         }
+
+        if (explosionSprite != null)
+        {
+            GameObject explosionCircle = new GameObject("explosion");
+            explosionCircle.transform.position = (Vector3)explosionPos + explosionSpriteOffset;
+            explosionCircle.transform.localScale = new Vector3(explosionRadius * 2, explosionRadius * 2, 1f);
+            var spriteRenderer = explosionCircle.AddComponent<SpriteRenderer>();
+            spriteRenderer.color = Color.red;
+            spriteRenderer.sprite = explosionSprite;
+            Destroy(explosionCircle, 1.0f);
+        }
+    }
+
+    public virtual void ExplodeAndDestroy(Vector2 explosionPos)
+    {
+        Explode(explosionPos);
         Destroy(gameObject);
-        Destroy(explosionCircle, 1.0f);
         NotifyThrowerEndWeaponUse();
     }
 
     public virtual void ExplodeWithDelay(Vector2 explosionPos, float t)
     {
-        this.ScheduleFuncall((e) => { Explode(e); return 1; }, explosionPos, t);
+        this.ScheduleFuncall((e) => { ExplodeAndDestroy(e); return 1; }, explosionPos, t);
     }
 
     public virtual void ExplodeWithDelay(GameObject o, float t)
     {
-        this.ScheduleFuncall((ob) => { Explode(ob.transform.position); return 1; }, o, t);
+        this.ScheduleFuncall((ob) => { ExplodeAndDestroy(ob.transform.position); return 1; }, o, t);
     }
 
     public override void NotifyOfLaunch(Vector2 velocity)

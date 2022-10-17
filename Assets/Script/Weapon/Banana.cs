@@ -26,7 +26,7 @@ public class Banana : Exploder
 
         if (Input.GetMouseButtonDown((int)MouseButton.Left) && explosionEnabled)
         {
-            Explode(rb.position);
+            ExplodeAndDestroy(rb.position);
         }
 
         if (!thrown) return;
@@ -45,7 +45,7 @@ public class Banana : Exploder
         }
         if (slowTime >= timeToExplode)
         {
-            Explode(rb.position);
+            ExplodeAndDestroy(rb.position);
         }
     }
 
