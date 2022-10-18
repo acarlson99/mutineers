@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.UI;
 
 public class PlayerMenuController : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class PlayerMenuController : MonoBehaviour
 
     public GameObject throwButton;
 
-    public GameObject[] Items = { };
+    public Button[] buttons;
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +28,11 @@ public class PlayerMenuController : MonoBehaviour
         }
         if (Singleton.Instance.turnManager.state >= TurnState.Thrown)
         {
-            throwButton.SetActive(false);
+            throwButton.GetComponent<Button>().interactable = false;
         }
         else
         {
-            throwButton.SetActive(true);
+            throwButton.GetComponent<Button>().interactable = true;
         }
     }
 
@@ -59,16 +60,17 @@ public class PlayerMenuController : MonoBehaviour
     }
 
     //public void SelectedPirateBomb()
-    public void SelectedPirateBomb(string name)
+    //public void SelectedPirateBomb(string name)
+    //{
+    //    IEnumerable<GameObject> b = from item in Items
+    //                                where item.GetComponent<Weapon>().weaponName == name
+    //                                select item;
+    public void SelectedPirateBomb(GameObject weaponPrefab)
     {
-        IEnumerable<GameObject> b = from item in Items
-                                    where item.GetComponent<Weapon>().weaponName == name
-                                    select item;
-        Assert.AreEqual<int>(b.Count(), 1);
         if (Singleton.Instance.turnManager.turnNum != selectedPirate.GetComponent<PirateController>().teamNum
          || Singleton.Instance.turnManager.state >= TurnState.BombSummoned)
             return;
-        var w = b.First().GetComponent<Weapon>();
+        var w = weaponPrefab.GetComponent<Weapon>();
         var p = selectedPirate.GetComponent<PirateController>();
         Debug.Log($"Selected pirate {selectedPirate.name} inv {p.inventory} use weapon {w.name}");
         if (!Singleton.Instance.weaponController.BeginWeaponUse(p, w, w.weaponCount))

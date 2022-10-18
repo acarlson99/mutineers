@@ -39,6 +39,12 @@ public class Inventory : Dictionary<EWeaponType, int>
         else Add(name, this[name] + 1);
     }
 
+    public int Get(EWeaponType name)
+    {
+        if (!CanUseItem(name)) return 0;
+        return this[name];
+    }
+
     public bool CanUseItem(EWeaponType name)
     {
         return ContainsKey(name) && this[name] != 0;
