@@ -3,6 +3,7 @@ using UnityEngine;
 public class Dynamite : Exploder
 {
     public override string weaponName { get; set; } = "dynamite";
+    public override EWeaponType weaponType { get; set; } = EWeaponType.Dynamite;
 
     public float slowMagnitude = 4;
     public float timeToExplode = 3;

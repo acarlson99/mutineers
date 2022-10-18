@@ -7,6 +7,7 @@ using UnityEngine;
 public class Seagull : Weapon
 {
     public override string weaponName { get; set; } = "seagull";
+    public override EWeaponType weaponType { get; set; } = EWeaponType.Seagull;
     public GameObject seagullBomb;
     public float maxX = 30;
     public float speed = 1;

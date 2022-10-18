@@ -4,6 +4,7 @@ using UnityEngine;
 public class ParachuteBomb : Exploder
 {
     public override string weaponName { get; set; } = "parachute bomb";
+    public override EWeaponType weaponType { get; set; } = EWeaponType.Parachute;
 
     public float maxFallSpeed = -2f;
 

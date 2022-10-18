@@ -39,8 +39,12 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    public void BeginWeaponUse(PirateController pirate, Weapon weapon, int count)
+    // return false if unable to use weapon
+    //public bool BeginWeaponUse(GameObject pirate, Weapon weapon, int count)
+    public bool BeginWeaponUse(PirateController pirate, Weapon weapon, int count)
     {
+        if (!pirate.inventory.UseItem(weapon.weaponType)) return false;
+
         p = pirate;
         p.BeginBombThrow(weapon.gameObject);
         pgo = p.gameObject;
@@ -51,6 +55,7 @@ public class WeaponController : MonoBehaviour
         this.n = count;
         Debug.Log($"{p} {w} {nSum} {nDest} {count}");
         summonWeapon();
+        return true;
     }
 
     private void summonWeapon()

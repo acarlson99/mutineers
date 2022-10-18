@@ -2,7 +2,7 @@ public class PiecesOfEight : Exploder
 {
 
     public override string weaponName { get; set; } = "pieces of eight";
-    // TODO: set weapon count to 8 here
+    public override EWeaponType weaponType { get; set; } = EWeaponType.Po8;
 
     public PiecesOfEight()
     {

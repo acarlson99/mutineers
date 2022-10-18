@@ -4,6 +4,7 @@ using UnityEngine;
 public class VoodooDoll : Weapon
 {
     public override string weaponName { get; set; } = "voodoo doll";
+    public override EWeaponType weaponType { get; set; } = EWeaponType.Voodoo;
 
     public float slowMagnitude = 4;
     public float timeToDestroy = 3;

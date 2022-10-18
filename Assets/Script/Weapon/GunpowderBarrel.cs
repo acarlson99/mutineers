@@ -6,6 +6,7 @@ using UnityEngine;
 public class GunpowderBarrel : Exploder, IExplodable
 {
     public override string weaponName { get; set; } = "gunpowder barrel";
+    public override EWeaponType weaponType { get; set; } = EWeaponType.Gunpowder;
 
     // Start is called before the first frame update
     protected override void Start()

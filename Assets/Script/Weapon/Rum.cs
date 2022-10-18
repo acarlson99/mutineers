@@ -6,6 +6,7 @@ public class Rum : Exploder
 {
     public GameObject fire;
     public override string weaponName { get; set; } = "rum";
+    public override EWeaponType weaponType { get; set; } = EWeaponType.Rum;
 
     // Start is called before the first frame update
     protected override void Start()

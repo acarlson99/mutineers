@@ -9,6 +9,7 @@ public class RumFire : Exploder
     public float triggerStayExplodeTime = 0.25f;
 
     public override string weaponName { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public override EWeaponType weaponType { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     private float t;
 
