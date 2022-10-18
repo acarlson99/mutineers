@@ -59,7 +59,7 @@ public class PirateController : MonoBehaviour, IExplodable
     public int teamNum;
 
     [SerializeField]
-    public List<STRINT> Ilist; // TODO: find way of making this work
+    public List<STRINT> Ilist;
     public Inventory inventory;
 
     [HideInInspector]
@@ -76,8 +76,11 @@ public class PirateController : MonoBehaviour, IExplodable
     // Start is called before the first frame update
     void Start()
     {
-        this.inventory = new Inventory(Ilist);
-        Debug.Log($"Created inventory {this.inventory}");
+        inventory = new Inventory(Ilist);
+        if (inventory.Count() == 0)
+        {
+            Debug.LogWarning("Inventory empty");
+        }
         launchController = GetComponent<LaunchController>();
         launchController.acceptingInput = false;
         rb = GetComponent<Rigidbody2D>();
