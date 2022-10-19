@@ -102,14 +102,14 @@ MonoBehaviour:
   weaponCount: 1
   thrower: {fileID: 0}
   explosionSpriteOffset: {x: 0, y: 0, z: 1}
-  explosionSprite: {fileID: 0}
+  explosionSprite: {fileID: 21300000, guid: 082686f0a54763e41bd93beabdf11f1d, type: 3}
   explosionRadius: 0.1
   explosionPower: 50
   upwardEffect: 2
   falloff: 1.2
   damageMultiplier: 0.5
   explosionEnabled: 0
-  direction: 0
+  direction: {x: 0, y: 0}
   moveSpeed: 6
   triggerStayExplodeTime: 0.2
 --- !u!70 &2600455514476160468

@@ -66,6 +66,7 @@ public class Singleton : MonoBehaviour
     public CinemachineVirtualCamera Vcam { get { return vcam; } set { vcam = value; } }
 
     public bool camFollowMode = false;
+    public PolygonCollider2D cameraBounds;
 
     private void Awake()
     {
@@ -100,6 +101,7 @@ public class Singleton : MonoBehaviour
         _f = null;
     }
 
+    [HideInInspector]
     public Transform _f;
 
     public void CamQuietUnfollow()

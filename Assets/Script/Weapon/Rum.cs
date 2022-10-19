@@ -39,7 +39,8 @@ public class Rum : Exploder
                 Vector2[] dirs = { Vector2.left, Vector2.right };
                 foreach (Vector2 dir in dirs)
                 {
-                    var fab = Instantiate(fire, transform.position - new Vector3(0, 0, 0.5f) + (Vector3)dir, Quaternion.identity);
+                    //var fab = Instantiate(fire, transform.position - new Vector3(0, 0, 0.5f) + (Vector3)dir*2, Quaternion.identity);
+                    var fab = Instantiate(fire, transform.position - new Vector3(0, 0, 0.5f) + (Vector3)dir * explosionRadius / 2, Quaternion.identity);
                     fab.GetComponent<RumFire>().direction = dir;
                 }
                 break;

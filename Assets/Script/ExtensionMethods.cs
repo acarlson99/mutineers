@@ -17,6 +17,7 @@ public static class ExtensionMethods
 
         Vector2 forceVector = rb.GetExplosionForceVector2D(position, force, falloff);
 
+        if (forceVector.y < 0) forceVector.y *= -1;
         Vector2 f = forceVector + upwardForce;
         rb.AddForce(f);
 
