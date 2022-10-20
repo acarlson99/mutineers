@@ -151,6 +151,11 @@ public class PirateController : MonoBehaviour, IExplodable
         bombThrowMode = false;
     }
 
+    private void Die()
+    {
+        Destroy(gameObject);
+    }
+
     public void DealExplosionDamage(Vector2 f, float damageMultiplier)
     {
         // called with force vector representing launch angle
@@ -159,8 +164,14 @@ public class PirateController : MonoBehaviour, IExplodable
         healthBar.currentHealth -= f.magnitude * damageMultiplier;
         Debug.Log($"Dealt {f.magnitude} damage");
 
-        if (healthBar.currentHealth <= 0) Destroy(gameObject);
+        if (healthBar.currentHealth <= 0) Die();
     }
 
     // TODO: DealRawDamage
+    public void DealRawDamage(float damage)
+    {
+        Debug.Log($"Raw damage {name} {damage}");
+        healthBar.currentHealth -= damage;
+        if (healthBar.currentHealth <= 0) Die();
+    }
 }

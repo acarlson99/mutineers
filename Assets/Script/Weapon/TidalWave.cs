@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,6 +6,8 @@ public class TidalWave : Weapon
 {
     public override EWeaponType WeaponType { get; } = EWeaponType.TidalWave;
     public float speed = 1;
+    public float launchMultiplier = 75;
+    public float damage = 300;
 
     private Vector3 direction;
     public Vector3 Direction { get { return direction; } }
@@ -21,8 +21,13 @@ public class TidalWave : Weapon
     private void Deploy()
     {
         NotifyOfLaunch(Vector2.zero);
+        var minY = Singleton.Instance.cameraBounds.MinY();
         var mPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = new Vector3(mPos.x, mPos.y, transform.position.z);
+        var height = Mathf.Abs(minY - mPos.y);
+        transform.localScale = new Vector3(transform.localScale.x, height, transform.localScale.z);
+        transform.position = new Vector3(mPos.x,
+            mPos.y - height / 2,
+            transform.position.z);
     }
 
     // Update is called once per frame
@@ -57,7 +62,9 @@ public class TidalWave : Weapon
         Debug.Log($"Collision enter {collision.gameObject}");
         if (collision.gameObject.tag != "Player") return;
 
-        // TODO: add force to hit pirate
-        collision.gameObject.GetComponent<PirateController>().DealExplosionDamage(Vector2.up, 100);
+        var rb = collision.gameObject.GetComponent<Rigidbody2D>();
+        rb.AddForce((Direction + Vector3.up) * launchMultiplier);
+        var pc = collision.gameObject.GetComponent<PirateController>();
+        pc.DealRawDamage(damage);
     }
 }

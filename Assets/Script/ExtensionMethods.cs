@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public static class ExtensionMethods
@@ -77,5 +78,25 @@ public static class ExtensionMethods
     {
         var coroutine = _scheduleFuncall(f, param, t);
         mb.StartCoroutine(coroutine);
+    }
+
+    public static float MinY(this PolygonCollider2D pc)
+    {
+        return pc.points.Select(p => p.y).Min();
+    }
+
+    public static float MaxY(this PolygonCollider2D pc)
+    {
+        return pc.points.Select(p => p.y).Max();
+    }
+
+    public static float MinX(this PolygonCollider2D pc)
+    {
+        return pc.points.Select(p => p.x).Min();
+    }
+
+    public static float MaxX(this PolygonCollider2D pc)
+    {
+        return pc.points.Select(p => p.x).Max();
     }
 }

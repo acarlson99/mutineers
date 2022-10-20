@@ -102,6 +102,8 @@ MonoBehaviour:
   weaponCount: 1
   thrower: {fileID: 0}
   speed: 6
+  launchMultiplier: 75
+  damage: 300
 --- !u!61 &6296595649137179669
 BoxCollider2D:
   m_ObjectHideFlags: 0
