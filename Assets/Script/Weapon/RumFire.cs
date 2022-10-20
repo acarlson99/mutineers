@@ -22,6 +22,7 @@ public class RumFire : Exploder
     // Update is called once per frame
     protected override void Update()
     {
+        base.Update();
         transform.position += (Vector3)direction * Time.deltaTime * moveSpeed;
         timerMux.Update(Time.deltaTime);
     }

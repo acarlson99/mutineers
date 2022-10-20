@@ -15,7 +15,10 @@ public class PlayerMenuButtonController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        if (playerMenu == null)
+        {
+            playerMenu = Singleton.Instance.playerMenu;
+        }
     }
 
     // Update is called once per frame
@@ -44,6 +47,7 @@ public class PlayerMenuButtonController : MonoBehaviour
             if (n < 0) s = "\u221E";
             numText.GetComponent<TMP_Text>().text = s;
         }
+        nameText.GetComponent<TMP_Text>().text = weaponPrefab.GetComponent<Weapon>().WeaponName;
     }
 
     public void SetCanvasInactive()

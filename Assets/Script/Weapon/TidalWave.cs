@@ -9,7 +9,8 @@ public class TidalWave : Weapon
     public override EWeaponType WeaponType { get; } = EWeaponType.TidalWave;
     public float speed = 1;
 
-    public Vector3 direction;
+    private Vector3 direction;
+    public Vector3 Direction { get { return direction; } }
 
     // Start is called before the first frame update
     protected override void Start()
@@ -48,5 +49,15 @@ public class TidalWave : Weapon
         }
 
         if (thrown) transform.position = transform.position + direction * speed * Time.deltaTime;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!thrown) return;
+        Debug.Log($"Collision enter {collision.gameObject}");
+        if (collision.gameObject.tag != "Player") return;
+
+        // TODO: add force to hit pirate
+        collision.gameObject.GetComponent<PirateController>().DealExplosionDamage(Vector2.up, 100);
     }
 }

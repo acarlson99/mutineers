@@ -10,7 +10,8 @@ public class Seagull : Weapon
     public GameObject seagullBomb;
     public float speed = 1;
 
-    public Vector3 direction;
+    private Vector3 direction;
+    public Vector3 Direction { get { return direction; } }
 
     // Start is called before the first frame update
     protected override void Start()

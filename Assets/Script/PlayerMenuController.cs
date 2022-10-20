@@ -6,12 +6,10 @@ using UnityEngine.UI;
 
 public class PlayerMenuController : MonoBehaviour
 {
-    [HideInInspector]
-    public GameObject selectedPirate = null;
-
     public GameObject throwButton;
 
-    public Button[] buttons;
+    [HideInInspector]
+    public GameObject selectedPirate = null;
 
     // Start is called before the first frame update
     void Start()

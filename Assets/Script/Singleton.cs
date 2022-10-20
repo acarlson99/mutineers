@@ -67,6 +67,7 @@ public class Singleton : MonoBehaviour
 
     public bool camFollowMode = false;
     public PolygonCollider2D cameraBounds;
+    public GameObject playerMenu;
 
     private void Awake()
     {

@@ -160,6 +160,7 @@ public class PirateController : MonoBehaviour, IExplodable
         Debug.Log($"Dealt {f.magnitude} damage");
 
         if (healthBar.currentHealth <= 0) Destroy(gameObject);
-
     }
+
+    // TODO: DealRawDamage
 }

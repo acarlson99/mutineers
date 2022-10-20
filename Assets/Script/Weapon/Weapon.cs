@@ -34,6 +34,8 @@ public abstract class Weapon : MonoBehaviour
     protected bool thrown = false;
     public bool Thrown { get { return thrown; } }
 
+    protected bool isTrigger = false;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -45,13 +47,16 @@ public abstract class Weapon : MonoBehaviour
             lc.gravityScale = rb.gravityScale;
             rb.gravityScale = 0f;
         }
+
+        var collider = GetComponent<Collider2D>();
+        if (collider) isTrigger = collider.isTrigger;
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
         var collider = GetComponent<Collider2D>();
-        if (collider)
+        if (collider && !isTrigger)
         {
             if (!thrown) collider.isTrigger = true;
             else collider.isTrigger = false;
