@@ -5,8 +5,8 @@ using UnityEngine;
 public class Banana : Exploder
 {
 
-    public override string weaponName { get; set; } = "banana";
-    public override EWeaponType weaponType { get; set; } = EWeaponType.Banana;
+    public override string weaponName { get; } = "banana";
+    public override EWeaponType weaponType { get; } = EWeaponType.Banana;
     public float slowMagnitude = 4;
     public float timeToExplode = 3;
     private float slowTime = 0;

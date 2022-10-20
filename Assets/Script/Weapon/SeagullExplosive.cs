@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class SeagullExplosive : Exploder
 {
-    public override string weaponName { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public override EWeaponType weaponType { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public override string weaponName { get => throw new System.NotImplementedException(); }
+    public override EWeaponType weaponType { get => throw new System.NotImplementedException(); }
 
     // Start is called before the first frame update
     protected override void Start()

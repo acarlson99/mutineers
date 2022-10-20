@@ -5,8 +5,8 @@ using UnityEngine;
 // TODO: dont allow placement inside another rigidbody
 public class GunpowderBarrel : Exploder, IExplodable
 {
-    public override string weaponName { get; set; } = "gunpowder barrel";
-    public override EWeaponType weaponType { get; set; } = EWeaponType.Gunpowder;
+    public override string weaponName { get; } = "gunpowder barrel";
+    public override EWeaponType weaponType { get; } = EWeaponType.Gunpowder;
 
     // Start is called before the first frame update
     protected override void Start()

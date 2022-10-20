@@ -4,11 +4,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 // TODO: killing throwing pirate with a seagull is buggy (instantly destroys seagull)
-public class Seagull : Weapon
+public class TidalWave : Weapon
 {
-    public override string weaponName { get; } = "seagull";
-    public override EWeaponType weaponType { get; } = EWeaponType.Seagull;
-    public GameObject seagullBomb;
+    public override string weaponName { get; } = "tidal wave";
+    public override EWeaponType weaponType { get; } = EWeaponType.TidalWave;
     public float speed = 1;
 
     public Vector3 direction;
@@ -41,13 +40,6 @@ public class Seagull : Weapon
         {
             direction = Vector3.right;
             Deploy();
-        }
-        else if (Input.GetMouseButtonDown((int)MouseButton.Left))
-        {
-            var fab = Instantiate(seagullBomb);
-            fab.transform.position = transform.position;
-            var frb = fab.GetComponent<Rigidbody2D>();
-            frb.AddForce(direction * speed, ForceMode2D.Impulse);
         }
 
         if (!Singleton.Instance.cameraBounds.OverlapPoint(transform.position))

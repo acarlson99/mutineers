@@ -14,12 +14,13 @@ public enum EWeaponType
     Rum,
     Seagull,
     Voodoo,
+    TidalWave,
 }
 
 public abstract class Weapon : MonoBehaviour
 {
-    public abstract string weaponName { get; set; }
-    public abstract EWeaponType weaponType { get; set; }
+    public abstract string weaponName { get; }
+    public abstract EWeaponType weaponType { get; }
     public int weaponCount = 1;
 
     [HideInInspector]

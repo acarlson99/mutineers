@@ -5,8 +5,8 @@ using UnityEngine;
 public class Rum : Exploder
 {
     public GameObject fire;
-    public override string weaponName { get; set; } = "rum";
-    public override EWeaponType weaponType { get; set; } = EWeaponType.Rum;
+    public override string weaponName { get; } = "rum";
+    public override EWeaponType weaponType { get; } = EWeaponType.Rum;
 
     // Start is called before the first frame update
     protected override void Start()
