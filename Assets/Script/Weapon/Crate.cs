@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class Crate : Weapon, IExplodable
 {
-    public override string weaponName { get; } = "crate";
-    public override EWeaponType weaponType { get; } = EWeaponType.Crate;
+    public override EWeaponType WeaponType { get; } = EWeaponType.Crate;
 
     // Start is called before the first frame update
     protected override void Start()

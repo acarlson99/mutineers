@@ -8,8 +8,7 @@ public class RumFire : Exploder
     public int moveSpeed = 4;
     public float triggerStayExplodeTime = 0.25f;
 
-    public override string weaponName { get => throw new System.NotImplementedException(); }
-    public override EWeaponType weaponType { get => throw new System.NotImplementedException(); }
+    public override EWeaponType WeaponType { get => throw new System.NotImplementedException(); }
 
     private TimerMux<int> timerMux = new TimerMux<int>();
 

@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class VoodooDoll : Weapon
 {
-    public override string weaponName { get; } = "voodoo doll";
-    public override EWeaponType weaponType { get; } = EWeaponType.Voodoo;
+    public override EWeaponType WeaponType { get; } = EWeaponType.Voodoo;
 
     public float slowMagnitude = 4;
     public float timeToDestroy = 3;

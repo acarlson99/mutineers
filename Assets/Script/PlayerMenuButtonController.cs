@@ -26,7 +26,7 @@ public class PlayerMenuButtonController : MonoBehaviour
         {
             var pc = pmc.selectedPirate.GetComponent<PirateController>();
             if (!pc) Debug.LogWarning("NO pirate controller????");
-            SetCount(pc.inventory.Get(weaponPrefab.GetComponent<Weapon>().weaponType));
+            SetCount(pc.inventory.Get(weaponPrefab.GetComponent<Weapon>().WeaponType));
         }
     }
 

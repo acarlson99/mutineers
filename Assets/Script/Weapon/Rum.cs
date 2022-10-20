@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Rum : Exploder
 {
-    public GameObject fire;
-    public override string weaponName { get; } = "rum";
-    public override EWeaponType weaponType { get; } = EWeaponType.Rum;
+    public GameObject flamePrefab;
+    public override EWeaponType WeaponType { get; } = EWeaponType.Rum;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -40,7 +39,7 @@ public class Rum : Exploder
                 foreach (Vector2 dir in dirs)
                 {
                     //var fab = Instantiate(fire, transform.position - new Vector3(0, 0, 0.5f) + (Vector3)dir*2, Quaternion.identity);
-                    var fab = Instantiate(fire, transform.position - new Vector3(0, 0, 0.5f) + (Vector3)dir * explosionRadius / 2, Quaternion.identity);
+                    var fab = Instantiate(flamePrefab, transform.position - new Vector3(0, 0, 0.5f) + (Vector3)dir * explosionRadius / 2, Quaternion.identity);
                     fab.GetComponent<RumFire>().direction = dir;
                 }
                 break;

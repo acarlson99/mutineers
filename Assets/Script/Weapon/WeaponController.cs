@@ -43,7 +43,7 @@ public class WeaponController : MonoBehaviour
     //public bool BeginWeaponUse(GameObject pirate, Weapon weapon, int count)
     public bool BeginWeaponUse(PirateController pirate, Weapon weapon, int count)
     {
-        if (!pirate.inventory.UseItem(weapon.weaponType)) return false;
+        if (!pirate.inventory.UseItem(weapon.WeaponType)) return false;
 
         p = pirate;
         p.BeginBombThrow(weapon.gameObject);

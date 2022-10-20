@@ -19,8 +19,8 @@ public enum EWeaponType
 
 public abstract class Weapon : MonoBehaviour
 {
-    public abstract string weaponName { get; }
-    public abstract EWeaponType weaponType { get; }
+    public string WeaponName { get { return WeaponType.ToString(); } }
+    public abstract EWeaponType WeaponType { get; }
     public int weaponCount = 1;
 
     [HideInInspector]

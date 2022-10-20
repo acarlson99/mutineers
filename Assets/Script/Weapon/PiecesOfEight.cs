@@ -1,8 +1,6 @@
 public class PiecesOfEight : Exploder
 {
-
-    public override string weaponName { get; } = "pieces of eight";
-    public override EWeaponType weaponType { get; } = EWeaponType.Po8;
+    public override EWeaponType WeaponType { get; } = EWeaponType.Po8;
 
     public PiecesOfEight()
     {

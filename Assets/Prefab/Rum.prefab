@@ -56,8 +56,9 @@ MonoBehaviour:
   explosionPower: 150
   upwardEffect: 1
   falloff: 1.2
+  damageMultiplier: 1
   explosionEnabled: 0
-  fire: {fileID: 4483365413502124498, guid: 87ee8e0193cedb549a4e2e7c7c8d46c4, type: 3}
+  flamePrefab: {fileID: 4483365413502124498, guid: 87ee8e0193cedb549a4e2e7c7c8d46c4, type: 3}
 --- !u!114 &-6516696098261985114
 MonoBehaviour:
   m_ObjectHideFlags: 0

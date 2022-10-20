@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class Mine : Exploder
 {
-    public override string weaponName { get; } = "mine";
-    public override EWeaponType weaponType { get; } = EWeaponType.Mine;
+    public override EWeaponType WeaponType { get; } = EWeaponType.Mine;
 
     private GameObject triggerArea;
     private SpriteRenderer spriteRenderer;

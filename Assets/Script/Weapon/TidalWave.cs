@@ -6,8 +6,7 @@ using UnityEngine;
 // TODO: killing throwing pirate with a seagull is buggy (instantly destroys seagull)
 public class TidalWave : Weapon
 {
-    public override string weaponName { get; } = "tidal wave";
-    public override EWeaponType weaponType { get; } = EWeaponType.TidalWave;
+    public override EWeaponType WeaponType { get; } = EWeaponType.TidalWave;
     public float speed = 1;
 
     public Vector3 direction;
