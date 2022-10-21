@@ -34,7 +34,7 @@ public class PirateController : MonoBehaviour, IExplodable
             Debug.LogWarning("Inventory empty");
             foreach (EWeaponType wt in Enum.GetValues(typeof(EWeaponType)))
             {
-                inventory.Add(wt);
+                inventory.Add(wt, -1);
             }
         }
         launchController = GetComponent<LaunchController>();

@@ -15,7 +15,7 @@ public class Anchor : Weapon
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (!thrown || toBeDestroyed) return;
-        if (collision.gameObject.tag != "Terrain") return;
+        if (collision.gameObject.tag == "Player") return;
         toBeDestroyed = true;
         NotifyThrowerEndWeaponUse();
         Destroy(gameObject, 2);
@@ -32,15 +32,6 @@ public class Anchor : Weapon
         var pc = collision.gameObject.GetComponent<PirateController>();
         pc.DealRawDamage(damage);
     }
-
-    //private void OnCollisionStay2D(Collision2D collision)
-    //{
-    //    if (!thrown || toBeDestroyed) return;
-    //    if (collision.gameObject.tag != "Terrain") return;
-    //    toBeDestroyed = true;
-    //    NotifyThrowerEndWeaponUse();
-    //    Destroy(gameObject, 2);
-    //}
 
     private void Deploy()
     {
