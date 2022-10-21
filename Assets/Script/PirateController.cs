@@ -11,6 +11,7 @@ public class PirateController : MonoBehaviour, IExplodable
 
     [SerializeField]
     public List<STRINT> Ilist;
+    public bool isCaptain = false;
     public Inventory inventory;
 
     [HideInInspector]
@@ -47,6 +48,10 @@ public class PirateController : MonoBehaviour, IExplodable
     [ContextMenu("Pirate Sprite Init")]
     void PriateSpriteInit()
     {
+        if (isCaptain)
+        {
+            GetComponent<SpriteRenderer>().sprite = Singleton.Instance.captainSprite;
+        }
         if (teamNum != 0)
         {
             GetComponent<SpriteRenderer>().flipX = true;
