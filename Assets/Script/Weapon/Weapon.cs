@@ -16,6 +16,7 @@ public enum EWeaponType
     Voodoo,
     TidalWave,
     Anchor,
+    Boulder,
 }
 
 public abstract class Weapon : MonoBehaviour
