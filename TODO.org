@@ -1,0 +1,39 @@
+#+TITLE: Mutineers Notes
+
+- [-] Base [0/4]
+  - [ ] UI [0/2]
+    - [ ] Minimap
+    - [ ] Smooth camera
+  - [-] [[https://nitrome.fandom.com/wiki/Mutiny#Weapons_9][Weapon]] [5/6]
+    - [X] Anchor
+    - [X] Boulder
+    - [ ] Cannon
+    - [X] Rum
+    - [X] Seagull
+    - [X] Tidal wave
+  - [ ] Levels [0/3]
+    - [ ] 0-5
+    - [ ] 6-10
+    - [ ] 11-15
+  - [-] Player [1/2]
+    - [-] Items [1/2]
+      - [X] Inventory (limited uses of items)
+        - [X] Implement
+        - [X] UI
+          - [X] toggle `button.Interactable`
+          - [X] show item count
+      - [ ] Loot/resource boxes falling from the sky
+    - [X] Special captain character
+- [ ] Polish [0/2]
+  - [ ] More than 2 players
+  - [ ] Extended levels/boss fight
+    - Kraken
+    - Cowboys?
+    - Historical Pirates
+      - Jack Sparrow
+      - Davy Jones (+ locker weapon idk)
+      - Sir Francis Drake (El Draque, dies of dysentery)
+      - Ferdinand Magellan (not really a pirate, but a sailor/explorer)
+      - Captain Kidd
+      - Blackbeard
+      - Madame Cheng
