@@ -17,6 +17,7 @@ public class RumFire : Exploder
     {
         base.Start();
         explosionSpriteOffset = new Vector3(0, 0, -1);
+        timerMux.Add(0);
     }
 
     // Update is called once per frame
@@ -25,6 +26,12 @@ public class RumFire : Exploder
         base.Update();
         transform.position += (Vector3)direction * Time.deltaTime * moveSpeed;
         timerMux.Update(Time.deltaTime);
+
+        var l = new List<ContactPoint2D>();
+        if (rb.GetContacts(l) == 0 && timerMux[0] >= 0.1f)
+        {
+            Destroy(gameObject);
+        }
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision) { }
@@ -57,6 +64,4 @@ public class RumFire : Exploder
     {
         timerMux.Remove(collision.GetInstanceID());
     }
-
-    // TODO: make flames disappear
 }
