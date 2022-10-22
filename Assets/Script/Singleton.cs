@@ -98,6 +98,7 @@ public class Singleton : MonoBehaviour
 
     public void CamFollow(Transform t)
     {
+        Debug.Log($"FOLLOW {t}");
         vcam.Follow = t;
         if (t == null) camFollowMode = false;
         else camFollowMode = true;
@@ -110,6 +111,7 @@ public class Singleton : MonoBehaviour
     public void CamQuietUnfollow()
     {
         if (!camFollowMode || vcam.Follow == null) return;
+        Debug.Log("Quietly unfollow");
         _f = vcam.Follow;
         vcam.Follow = null;
     }
@@ -117,6 +119,7 @@ public class Singleton : MonoBehaviour
     public void CamQuietRefollow()
     {
         if (!camFollowMode || _f == null) return;
+        Debug.Log("Quiet REFOLLOW");
         vcam.Follow = _f;
         _f = null;
     }

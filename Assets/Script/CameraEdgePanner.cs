@@ -18,6 +18,7 @@ public class CameraEdgePanner : MonoBehaviour
     private float size;
     private Vector2 pos;
     private float timer;
+    private bool freemoveMode = false;
 
     private void Start()
     {
@@ -46,12 +47,20 @@ public class CameraEdgePanner : MonoBehaviour
         if (pos == (Vector2)Camera.main.transform.position)
         {
             timer += Time.deltaTime;
-            if (timer >= cameraFreemoveResetTime) Singleton.Instance.CamQuietRefollow();
+            if (freemoveMode && timer >= cameraFreemoveResetTime)
+            {
+                Singleton.Instance.CamQuietRefollow();
+                freemoveMode = false;
+            }
         }
         else if (pos != (Vector2)Camera.main.transform.position)
         {
             timer = 0;
-            if (vcam.Follow) Singleton.Instance.CamQuietUnfollow();
+            if (vcam.Follow)
+            {
+                Singleton.Instance.CamQuietUnfollow(); // TODO: move CamQuietUnfollow to this class
+                freemoveMode = true; // TODO: set this anytime CamQuietUnfollow is called
+            }
         }
     }
 

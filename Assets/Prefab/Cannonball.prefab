@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -2107111978537032386}
   - component: {fileID: 2435749842317164006}
   - component: {fileID: 2894518618851519228}
+  - component: {fileID: -3263378125620086462}
   m_Layer: 12
   m_Name: Cannonball
   m_TagString: Weapon
@@ -123,3 +124,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-3263378125620086462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6746506611216703613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e4a27a6576a20640b8aabc513a02bbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponCount: 1
+  thrower: {fileID: 0}
+  explosionSpriteOffset: {x: 0, y: 0, z: 1}
+  explosionSprite: {fileID: -2413806693520163455, guid: 1d63e583f7e6117419a8a9d9a31be371, type: 3}
+  explosionRadius: 3
+  explosionPower: 250
+  upwardEffect: 1
+  falloff: 1.2
+  damageMultiplier: 1
+  explosionEnabled: 0
