@@ -6,5 +6,5 @@ public class Cannonball : Exploder
 {
     public override EWeaponType WeaponType => throw new System.NotImplementedException();
 
-    protected override void Start() { base.Start(); NotifyOfLaunch(Vector3.zero); }
+    protected override void Start() { base.Start(); NotifyOfLaunch(GetComponent<Rigidbody2D>().velocity); }
 }

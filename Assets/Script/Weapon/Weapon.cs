@@ -79,6 +79,7 @@ public abstract class Weapon : MonoBehaviour
 
     public virtual void NotifyOfLaunch(Vector2 velocity)
     {
+        Debug.Log($"Launch with velocity {velocity}");
         thrown = true;
     }
 }

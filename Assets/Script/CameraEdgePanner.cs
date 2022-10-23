@@ -31,17 +31,18 @@ public class CameraEdgePanner : MonoBehaviour
         var scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll != 0)
         {
-            currentZoom -= Time.deltaTime * scroll * zoomSpeed;
+            currentZoom -= Time.deltaTime * scroll * zoomSpeed * Mathf.Lerp(minZoom, maxZoom, 0.25f);
             currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
         }
         static bool inRange(float a, float b, float c) => a <= b && b <= c;
         pos = (Vector2)Camera.main.transform.position; // set pos to current cam pos (not vcam) to avoid pos infinitely scrolling
         if (inRange(0, Input.mousePosition.x, Screen.width) && inRange(0, Input.mousePosition.y, Screen.height))
         {
-            if (inRange(Screen.height - panMargin, Input.mousePosition.y, Screen.height)) pos.y += Time.deltaTime * panSpeed;
-            if (inRange(Screen.width - panMargin, Input.mousePosition.x, Screen.width)) pos.x += Time.deltaTime * panSpeed;
-            if (inRange(0, Input.mousePosition.y, panMargin)) pos.y -= Time.deltaTime * panSpeed;
-            if (inRange(0, Input.mousePosition.x, panMargin)) pos.x -= Time.deltaTime * panSpeed;
+            float v = Time.deltaTime * panSpeed;
+            if (inRange(Screen.height - panMargin, Input.mousePosition.y, Screen.height)) pos.y += v;
+            if (inRange(Screen.width - panMargin, Input.mousePosition.x, Screen.width)) pos.x += v;
+            if (inRange(0, Input.mousePosition.y, panMargin)) pos.y -= v;
+            if (inRange(0, Input.mousePosition.x, panMargin)) pos.x -= v;
         }
 
         if (pos == (Vector2)Camera.main.transform.position)
