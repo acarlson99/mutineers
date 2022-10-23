@@ -99,4 +99,14 @@ public static class ExtensionMethods
     {
         return pc.points.Select(p => p.x).Max();
     }
+
+    public static float Height(this PolygonCollider2D pc)
+    {
+        return pc.MaxY() - pc.MinY();
+    }
+
+    public static float Width(this PolygonCollider2D pc)
+    {
+        return pc.MaxX() - pc.MinX();
+    }
 }
