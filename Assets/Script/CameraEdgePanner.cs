@@ -5,7 +5,7 @@ public class CameraEdgePanner : MonoBehaviour
 {
     public Vector3 offset;
     public float currentZoom = 1.0f;
-    public float zoomSpeed = 100f;
+    public float zoomSensitivity = 0.25f;
     public float minCamSize = 2;
     public float maxCamSize = 10;
     //public float maxCamSize = 8;
@@ -37,12 +37,10 @@ public class CameraEdgePanner : MonoBehaviour
         // clamp zoom
         if (size * z > max)
         {
-            Debug.Log($"{size} * {z} = {size * z} > {max} ");
             z -= ((size * z) - max) / size;
         }
         if (size * z < min)
         {
-            Debug.Log($"{size} * {z} = {size * z} < {min} ");
             z += (min - (size * z)) / size;
         }
         return z;
@@ -51,13 +49,14 @@ public class CameraEdgePanner : MonoBehaviour
     private void Update()
     {
         var scroll = Input.GetAxis("Mouse ScrollWheel");
-        Debug.Log(vcam.GetComponent<CinemachineConfiner2D>().m_MaxWindowSize);
         if (scroll != 0)
         {
-            currentZoom -= Time.deltaTime * scroll * zoomSpeed * Mathf.Lerp(minCamSize, maxCamSize, 1);
+            var deltaZoom = scroll * zoomSensitivity * Mathf.Lerp(minCamSize, maxCamSize, 4);
+            Debug.Log($"{scroll} * {zoomSensitivity} * {Mathf.Lerp(minCamSize, maxCamSize, 4)} = {deltaZoom}");
+            currentZoom -= deltaZoom;
         }
         var z = ClampZoom(currentZoom, minCamSize, maxCamSize);
-        Debug.Log($"{currentZoom} clamped to {z}");
+        if (z != currentZoom) Debug.Log($"{currentZoom} clamped to {z}");
         currentZoom = z;
         static bool inRange(float a, float b, float c) => a <= b && b <= c;
         pos = (Vector2)Camera.main.transform.position; // set pos to current cam pos (not vcam) to avoid pos infinitely scrolling
