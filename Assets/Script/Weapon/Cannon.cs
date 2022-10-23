@@ -2,15 +2,29 @@ using UnityEngine;
 
 public class Cannon : Weapon
 {
+    // TODO: make this not pass through walls
     public override EWeaponType WeaponType { get; } = EWeaponType.Cannon;
     public GameObject cannonballPrefab;
 
     public bool hasFired { get; protected set; } = false;
 
+    private Vector3 origin;
+    private GameObject rangeIndicator;
+
+    public Sprite rangeIndicatorSprite;
+    public Color rangeIndicatorColor;
+    public float rangeRadius;
+
     // Start is called before the first frame update
     protected override void Start()
     {
-
+        origin = transform.position;
+        rangeIndicator = new GameObject("range indicator");
+        rangeIndicator.transform.position = origin;
+        rangeIndicator.transform.localScale = new Vector2(rangeRadius * 2, rangeRadius * 2);
+        SpriteRenderer spriteRenderer = rangeIndicator.AddComponent<SpriteRenderer>();
+        spriteRenderer.sprite = rangeIndicatorSprite;
+        spriteRenderer.color = rangeIndicatorColor - new Color(0, 0, 0, 0.5f);
     }
 
     // Update is called once per frame
@@ -19,12 +33,19 @@ public class Cannon : Weapon
 
     }
 
+    private void OnDestroy()
+    {
+        Destroy(rangeIndicator);
+    }
+
     private void OnMouseDrag()
     {
         thrown = true;
         Singleton.Instance.CamQuietUnfollow();
         var point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         point.z = transform.position.z;
+
+        point = origin + Vector3.ClampMagnitude(point - origin, rangeRadius);
         transform.position = point;
     }
 

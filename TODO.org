@@ -1,13 +1,13 @@
 #+TITLE: Mutineers Notes
 
-- [-] Base [0/4]
+- [-] Base [1/4]
   - [ ] UI [0/2]
     - [ ] Minimap
     - [ ] Smooth camera
-  - [-] [[https://nitrome.fandom.com/wiki/Mutiny#Weapons_9][Weapon]] [5/6]
+  - [X] [[https://nitrome.fandom.com/wiki/Mutiny#Weapons_9][Weapon]] [6/6]
     - [X] Anchor
     - [X] Boulder
-    - [ ] Cannon
+    - [X] Cannon
     - [X] Rum
     - [X] Seagull
     - [X] Tidal wave
