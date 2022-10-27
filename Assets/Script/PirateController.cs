@@ -172,7 +172,6 @@ public class PirateController : MonoBehaviour, IExplodable
         if (healthBar.currentHealth <= 0) Die();
     }
 
-    // TODO: DealRawDamage
     public void DealRawDamage(float damage)
     {
         Debug.Log($"Raw damage {name} {damage}");

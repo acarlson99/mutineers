@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-// TODO: killing throwing pirate with a seagull is buggy (instantly destroys seagull)
 public class Seagull : Weapon
 {
     public override EWeaponType WeaponType { get; } = EWeaponType.Seagull;
@@ -17,6 +14,7 @@ public class Seagull : Weapon
     protected override void Start()
     {
         base.Start();
+        thrower.destroyIfPirateDead = false;
     }
 
     private void Deploy()
@@ -56,6 +54,6 @@ public class Seagull : Weapon
             Destroy(gameObject);
         }
 
-        if (thrown) transform.position = transform.position + direction * speed * Time.deltaTime;
+        if (thrown) transform.position = transform.position + speed * Time.deltaTime * direction;
     }
 }
