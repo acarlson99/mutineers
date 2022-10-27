@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Cannon : Weapon
 {
-    // TODO: make this not pass through walls
+    // TODO: make this not pass through walls, add rigidbody
     public override EWeaponType WeaponType { get; } = EWeaponType.Cannon;
     public GameObject cannonballPrefab;
 
