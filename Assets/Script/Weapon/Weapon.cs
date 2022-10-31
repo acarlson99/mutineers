@@ -65,7 +65,7 @@ public abstract class Weapon : MonoBehaviour
             else collider.isTrigger = false;
         }
         // wake up to enable OnCollisionEnter OnCollisionStay
-        if (rb && rb.IsSleeping()) rb.WakeUp();
+        //if (rb && rb.IsSleeping()) rb.WakeUp(); // commented out bc unnecessary, if some weapons dont work then this may be why
         DestroyIfOOB();
     }
 
