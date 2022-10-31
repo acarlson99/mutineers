@@ -57,7 +57,6 @@ public class PirateController : MonoBehaviour, IExplodable
             GetComponent<SpriteRenderer>().flipX = true;
             GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 1, 1);
         }
-
     }
 
     // Update is called once per frame

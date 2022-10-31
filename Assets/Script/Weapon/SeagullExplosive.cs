@@ -10,20 +10,4 @@ public class SeagullExplosive : Exploder
         base.Start();
         NotifyOfLaunch(Vector2.zero);
     }
-
-    // Update is called once per frame
-    protected override void Update()
-    {
-        base.Update();
-        DestroyIfOOB();
-    }
-
-    public bool DestroyIfOOB()
-    {
-        if (transform.position.y < Singleton.Instance.killzoneY)
-        {
-            Destroy(gameObject);
-        }
-        return false;
-    }
 }

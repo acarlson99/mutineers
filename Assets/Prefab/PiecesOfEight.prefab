@@ -157,8 +157,9 @@ MonoBehaviour:
   thrower: {fileID: 0}
   explosionSpriteOffset: {x: 0, y: 0, z: 1}
   explosionSprite: {fileID: -2413806693520163455, guid: 1d63e583f7e6117419a8a9d9a31be371, type: 3}
-  explosionRadius: 2
+  explosionRadius: 1
   explosionPower: 125
   upwardEffect: 1
   falloff: 1.2
+  damageMultiplier: 1
   explosionEnabled: 0

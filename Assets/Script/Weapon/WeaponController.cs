@@ -38,7 +38,7 @@ public class WeaponController : MonoBehaviour
         {
             if (!lastThrown.GetComponent<Weapon>().Thrown)
             {
-                lastThrown.transform.position = p.transform.position - new Vector3(0, 0, 1);
+                lastThrown.transform.position = p.transform.position - new Vector3(0, -0.25f, 1);
             }
         }
     }

@@ -66,9 +66,10 @@ public abstract class Weapon : MonoBehaviour
         }
         // wake up to enable OnCollisionEnter OnCollisionStay
         if (rb && rb.IsSleeping()) rb.WakeUp();
-        GetComponent<LaunchController>()?.DestroyIfOOB();
+        DestroyIfOOB();
     }
 
+    // weapon throw end
     public void NotifyThrowerEndWeaponUse()
     {
         Debug.Log($"Notifying thrower {thrower}");
@@ -77,9 +78,21 @@ public abstract class Weapon : MonoBehaviour
         thrower = null;
     }
 
+    // weapon thrown, but not ended
     public virtual void NotifyOfLaunch(Vector2 velocity)
     {
         Debug.Log($"Launch with velocity {velocity}");
         thrown = true;
+    }
+
+    public virtual bool DestroyIfOOB()
+    {
+        if (transform.position.y < Singleton.Instance.killzoneY)
+        {
+            Destroy(gameObject);
+            NotifyThrowerEndWeaponUse();
+            return true;
+        }
+        return false;
     }
 }
