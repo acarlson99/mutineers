@@ -40,7 +40,7 @@ public class Inventory : Dictionary<EWeaponType, int>
     public void Add(EWeaponType name)
     {
         if (!ContainsKey(name)) Add(name, 1);
-        else if (this[name] > 0) Add(name, this[name] + 1);
+        else if (this[name] > 0) this[name]++;
     }
 
     public int Get(EWeaponType name)

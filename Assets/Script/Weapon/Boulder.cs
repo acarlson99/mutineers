@@ -23,10 +23,13 @@ public class Boulder : Weapon
 
         if (!thrown) return;
 
-        if (rb.IsMovingSlowly(0.01f))
+        if (rb.IsMovingSlowly(0.04f))
         {
-            NotifyThrowerEndWeaponUse();
-            Destroy(gameObject, 2);
+            if (thrower)
+            {
+                NotifyThrowerEndWeaponUse();
+                Destroy(gameObject, 2);
+            }
         }
     }
 

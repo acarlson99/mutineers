@@ -60,7 +60,23 @@ public static class ExtensionMethods
 
     public static IEnumerator LerpColor(this SpriteRenderer sr, Color end, float duration, bool repeat = false)
     {
-        yield return sr.LerpColor(sr.color, end, duration, repeat);
+        return sr.LerpColor(sr.color, end, duration, repeat);
+    }
+
+    public static IEnumerator LerpPos(this Transform tr, Vector3 start, Vector3 end, float duration)
+    {
+        float time = 0;
+        while (time < duration)
+        {
+            tr.position = Vector3.Lerp(start, end, time / duration);
+            time += Time.deltaTime;
+            yield return tr.position;
+        }
+    }
+
+    public static IEnumerator LerpPos(this Transform tr, Vector3 direction, float duration)
+    {
+        return tr.LerpPos(tr.position, tr.position + direction, duration);
     }
 
     public static bool IsMovingSlowly(this Rigidbody2D rb, float slowMagnitude)

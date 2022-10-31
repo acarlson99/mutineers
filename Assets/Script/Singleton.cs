@@ -123,4 +123,12 @@ public class Singleton : MonoBehaviour
         vcam.Follow = _f;
         _f = null;
     }
+
+    // TODO: create VCAM priority queue for vcam.follow
+    //       enum FollowPriority {
+    //           Player,
+    //           Event, // new chest, text, etc.
+    //           Weapon,
+    //           WeaponThrown,
+    //       }
 }
