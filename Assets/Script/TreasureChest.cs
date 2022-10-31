@@ -17,6 +17,9 @@ public class TreasureChest : MonoBehaviour
     void Update()
     {
         DestroyIfOOB();
+
+        var rb = GetComponent<Rigidbody2D>();
+        rb.velocity = Vector2.ClampMagnitude(rb.velocity, 2);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -35,9 +35,7 @@ public class TurnManager
                 range = range.Union(r);
             }
 
-            var pos = Vector3.zero;
-            pos.y = Singleton.Instance.cameraBounds.MaxY();
-            pos.x = range.RandomElement();
+            var pos = new Vector3(range.RandomElement(), Singleton.Instance.cameraBounds.MaxY(), 0);
             // TODO: modify chest contents
             GameObject chest = GameObject.Instantiate(Singleton.Instance.chestFab, pos, Quaternion.identity);
             Singleton.Instance.CamFollow(chest.transform);
