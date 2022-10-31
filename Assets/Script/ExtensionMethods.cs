@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -124,5 +125,16 @@ public static class ExtensionMethods
     public static float Width(this PolygonCollider2D pc)
     {
         return pc.MaxX() - pc.MinX();
+    }
+
+    public static T RandomElement<T>(this IEnumerable<T> enumerable)
+    {
+        return enumerable.RandomElementUsing<T>(new System.Random());
+    }
+
+    public static T RandomElementUsing<T>(this IEnumerable<T> enumerable, System.Random rand)
+    {
+        int index = rand.Next(0, enumerable.Count());
+        return enumerable.ElementAt(index);
     }
 }

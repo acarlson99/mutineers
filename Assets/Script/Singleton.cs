@@ -1,4 +1,5 @@
 using Cinemachine;
+using System.Linq;
 using UnityEngine;
 
 public enum TurnState { Start, Thrown, BombSummoned, BombThrown, End };
@@ -19,6 +20,27 @@ public class TurnManager
             state = TurnState.Start;
             selectedBoy = null;
             Singleton.Instance.CamFollow(null);
+
+            var objs = GameObject.FindGameObjectsWithTag("Terrain");
+            var range = Enumerable.Range(0, 0);
+            foreach (var obj in objs)
+            {
+                if (!obj.GetComponent<BoxCollider2D>()) continue;
+
+                var bc = obj.GetComponent<BoxCollider2D>();
+
+                var width = Mathf.Abs(bc.bounds.max.x - bc.bounds.min.x);
+                var x = obj.transform.position.x;
+                var r = Enumerable.Range((int)(x - width / 2), (int)width);
+                range = range.Union(r);
+            }
+
+            var pos = Vector3.zero;
+            pos.y = Singleton.Instance.cameraBounds.MaxY();
+            pos.x = range.RandomElement();
+            // TODO: modify chest contents
+            GameObject chest = GameObject.Instantiate(Singleton.Instance.chestFab, pos, Quaternion.identity);
+            Singleton.Instance.CamFollow(chest.transform);
         }
     }
 
@@ -68,6 +90,7 @@ public class Singleton : MonoBehaviour
     public bool camFollowMode = false;
     public PolygonCollider2D cameraBounds;
     public GameObject playerMenu;
+    public GameObject chestFab;
     public Sprite captainSprite;
     public Sprite mutineerSprite;
 

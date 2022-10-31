@@ -16,7 +16,7 @@ public class TreasureChest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        DestroyIfOOB();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,12 +28,22 @@ public class TreasureChest : MonoBehaviour
         {
             collision.gameObject.GetComponent<PirateController>().inventory.Add(wt);
         }
-        StartCoroutine(lid.transform.LerpPos(Vector3.up/2, 1.5f));
+        StartCoroutine(lid.transform.LerpPos(Vector3.up / 2, 1.5f));
         Destroy(gameObject, 2);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         OnTriggerEnter2D(collision.collider);
+    }
+
+    public bool DestroyIfOOB()
+    {
+        if (transform.position.y < Singleton.Instance.killzoneY)
+        {
+            Destroy(gameObject);
+            return true;
+        }
+        return false;
     }
 }
