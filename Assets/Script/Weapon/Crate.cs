@@ -63,7 +63,6 @@ public class Crate : Weapon, IExplodable
     public override void NotifyOfLaunch(Vector2 velocity)
     {
         base.NotifyOfLaunch(velocity);
-        gameObject.layer = LayerMask.NameToLayer("Default"); // default layer when thrown, otherwise bomb layer
         Destroy(mouseSprite);
         mouseSprite = null;
     }

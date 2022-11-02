@@ -68,7 +68,6 @@ public class GunpowderBarrel : Exploder, IExplodable
     {
         base.NotifyOfLaunch(velocity);
         explosionEnabled = false; // SMELL: resetting var set in previous call
-        gameObject.layer = LayerMask.NameToLayer("Default"); // default layer when thrown, otherwise bomb layer
         Destroy(mouseSprite);
         mouseSprite = null;
     }
