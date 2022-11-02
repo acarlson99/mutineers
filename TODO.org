@@ -32,8 +32,10 @@
         - [X] Dynamically load chest contents
         - [X] Don't fall into ocean
     - [X] Special captain character
-- [ ] Polish [0/3]
+- [ ] Polish [0/5]
+  - [ ] Wacky speech bubbles && dialog
   - [ ] Cancel throw/weapon + reselect weapon
+  - [ ] Refined chest contents
   - [ ] More than 2 players
   - [ ] Extended levels/boss fight
     - Kraken
