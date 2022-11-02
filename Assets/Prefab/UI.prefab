@@ -48,6 +48,7 @@ MonoBehaviour:
   lineRenderer: {fileID: 8968019147574473249}
   weaponController: {fileID: 0}
   vcam: {fileID: 8968019147548379095}
+  chestWeapons: 
   camFollowMode: 0
   cameraBounds: {fileID: 8968019147391089761}
   playerMenu: {fileID: 8968019147034884821}
@@ -492,7 +493,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8968019146956487070}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalPosition: {x: -13, y: 2, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -806,7 +807,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BoundingShape2D: {fileID: 8968019147391089761}
-  m_Damping: 0.5
+  m_Damping: 1
   m_MaxWindowSize: 0
 --- !u!114 &8968019147548379089
 MonoBehaviour:

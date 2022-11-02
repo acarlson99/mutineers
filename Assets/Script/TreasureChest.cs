@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TreasureChest : MonoBehaviour
 {
-    public EWeaponType[] weaponTypes;
+    public List<EWeaponType> contents = new();
     public GameObject lid;
 
     // Start is called before the first frame update
@@ -27,11 +26,12 @@ public class TreasureChest : MonoBehaviour
         if (!collision.gameObject.CompareTag("Player")) return;
 
         enabled = false;
-        foreach (var wt in weaponTypes)
+        foreach (var wt in contents)
         {
             collision.gameObject.GetComponent<PirateController>().inventory.Add(wt);
         }
         StartCoroutine(lid.transform.LerpPos(Vector3.up / 2, 1.5f));
+        // TODO: sprite animation, display contained goodies
         Destroy(gameObject, 2);
     }
 

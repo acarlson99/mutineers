@@ -36,9 +36,14 @@ public class TurnManager
             }
 
             var pos = new Vector3(range.RandomElement(), Singleton.Instance.cameraBounds.MaxY(), 0);
-            // TODO: modify chest contents
-            GameObject chest = GameObject.Instantiate(Singleton.Instance.chestFab, pos, Quaternion.identity);
-            Singleton.Instance.CamFollow(chest.transform);
+            GameObject chestObj = GameObject.Instantiate(Singleton.Instance.chestFab, pos, Quaternion.identity);
+            var chest = chestObj.GetComponent<TreasureChest>();
+            var warr = Singleton.Instance.chestWeapons;
+            for (int i = 0; i < 2; i++)
+            {
+                chest.contents.Add(warr[UnityEngine.Random.Range(0, warr.Length)]);
+            }
+            Singleton.Instance.CamFollow(chestObj.transform);
         }
     }
 
@@ -84,6 +89,8 @@ public class Singleton : MonoBehaviour
     [SerializeField]
     private CinemachineVirtualCamera vcam = null;
     public CinemachineVirtualCamera Vcam { get { return vcam; } set { vcam = value; } }
+
+    public EWeaponType[] chestWeapons; // TODO: parameterize further
 
     public bool camFollowMode = false;
     public PolygonCollider2D cameraBounds;

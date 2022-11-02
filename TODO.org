@@ -3,7 +3,9 @@
 - [-] Base [1/4]
   - [-] UI [1/2]
     - [X] Minimap
-    - [ ] Smooth camera (no weird jump/snap on focus/zoom)
+    - [-] Smooth camera
+      - [X] Fix weird jump/snap on zoom
+      - [ ] Fix jumpy cam in character focus
   - [X] [[https://nitrome.fandom.com/wiki/Mutiny#Weapons_9][Weapon]] [6/6]
     - [X] Anchor
     - [X] Boulder
@@ -15,22 +17,23 @@
     - [X] 0-5
     - [ ] 6-10
     - [ ] 11-15
-  - [-] Player [1/3]
+  - [-] Player [2/3]
     - [ ] Enemy AI
       - Unity ML Agents
-    - [-] Items [1/2]
+    - [X] Items [2/2]
       - [X] Inventory (limited uses of items)
         - [X] Implement
         - [X] UI
           - [X] toggle `button.Interactable`
           - [X] show item count
-      - [-] Treasure [3/4]
+      - [X] Treasure [4/4]
         - [X] Chest
         - [X] Fall from sky
-        - [ ] Dynamically load chest contents
+        - [X] Dynamically load chest contents
         - [X] Don't fall into ocean
     - [X] Special captain character
-- [ ] Polish [0/2]
+- [ ] Polish [0/3]
+  - [ ] Cancel throw/weapon + reselect weapon
   - [ ] More than 2 players
   - [ ] Extended levels/boss fight
     - Kraken
