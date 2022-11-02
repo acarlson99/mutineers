@@ -52,11 +52,11 @@ public class CameraEdgePanner : MonoBehaviour
         if (scroll != 0)
         {
             var deltaZoom = scroll * zoomSensitivity * Mathf.Lerp(minCamSize, maxCamSize, 4);
-            Debug.Log($"{scroll} * {zoomSensitivity} * {Mathf.Lerp(minCamSize, maxCamSize, 4)} = {deltaZoom}");
+            //Debug.Log($"{scroll} * {zoomSensitivity} * {Mathf.Lerp(minCamSize, maxCamSize, 4)} = {deltaZoom}");
             currentZoom -= deltaZoom;
         }
         var z = ClampZoom(currentZoom, minCamSize, maxCamSize);
-        if (z != currentZoom) Debug.Log($"{currentZoom} clamped to {z}");
+        //if (z != currentZoom) Debug.Log($"{currentZoom} clamped to {z}");
         currentZoom = z;
         static bool inRange(float a, float b, float c) => a <= b && b <= c;
         pos = (Vector2)Camera.main.transform.position; // set pos to current cam pos (not vcam) to avoid pos infinitely scrolling

@@ -1,8 +1,8 @@
 #+TITLE: Mutineers Notes
 
 - [-] Base [1/4]
-  - [ ] UI [0/2]
-    - [ ] Minimap
+  - [-] UI [1/2]
+    - [X] Minimap
     - [ ] Smooth camera (no weird jump/snap on focus/zoom)
   - [X] [[https://nitrome.fandom.com/wiki/Mutiny#Weapons_9][Weapon]] [6/6]
     - [X] Anchor

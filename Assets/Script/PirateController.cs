@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PirateController : MonoBehaviour, IExplodable
 {
-    public GameObject menu;
+    private GameObject menu;
     //public GameObject bombObject;
     public int teamNum;
 
@@ -24,6 +24,7 @@ public class PirateController : MonoBehaviour, IExplodable
     private LaunchController launchController;
     private Rigidbody2D rb;
     public HealthBar healthBar;
+    public GameObject minimapIcon;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,7 @@ public class PirateController : MonoBehaviour, IExplodable
         PriateSpriteInit();
 
         Singleton.Instance.turnManager.PlayerRegister(teamNum);
+        menu = Singleton.Instance.playerMenu;
     }
 
     [ContextMenu("Pirate Sprite Init")]
@@ -56,6 +58,7 @@ public class PirateController : MonoBehaviour, IExplodable
         {
             GetComponent<SpriteRenderer>().flipX = true;
             GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 1, 1);
+            minimapIcon.GetComponent<SpriteRenderer>().color = Color.blue;
         }
     }
 
