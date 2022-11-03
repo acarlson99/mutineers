@@ -13,7 +13,7 @@ public class Crate : Weapon, IExplodable
     {
         base.Start();
 
-        mouseSprite = new GameObject();
+        mouseSprite = new GameObject("CrateSprite");
         var sprite = mouseSprite.AddComponent<SpriteRenderer>();
         sprite.sprite = GetComponent<SpriteRenderer>().sprite;
         sprite.color = GetComponent<SpriteRenderer>().color - new Color(0, 0, 0, 0.5f);
