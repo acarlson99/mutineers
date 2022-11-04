@@ -25,10 +25,11 @@ public class VoodooDoll : Weapon
         // FIXME: cleanup, this is janky
         if (targetPirate == null && Input.GetMouseButtonDown((int)MouseButton.Left))
         {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            var layerMask = LayerMask.GetMask(new string[] { "Player" });
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, -1, layerMask);
             if (hit.collider != null)
             {
-                Debug.Log($"{hit} {hit.collider} {hit.rigidbody} {hit.collider.gameObject.name}");
+                Debug.Log($"{hit} {hit.collider} {hit.rigidbody} {hit.collider.gameObject.name} {Input.mousePosition}");
                 if (hit.collider != null && hit.collider.gameObject != null)
                 {
                     PirateController pc = hit.collider.gameObject.GetComponent<PirateController>();
@@ -40,7 +41,7 @@ public class VoodooDoll : Weapon
         if (targetPirate == null)
         {
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f);
-            Singleton.Instance.CamFollow(null);
+            Singleton.Instance.CamQuietUnfollow();
             lc.acceptingInput = false; // turn off launch input until target selected
         }
         else if (!thrown)
