@@ -51,12 +51,12 @@ public static class ExtensionMethods
         float time = 0;
         while (time < duration)
         {
-            if (!sr?.gameObject) break;
+            if (sr == null || sr.gameObject == null) break;
             sr.color = Color.Lerp(start, end, time / duration);
             time += Time.deltaTime;
             yield return null;
         }
-        if (sr?.gameObject && repeat) yield return sr.LerpColor(end, start, duration, repeat);
+        if (sr != null && sr.gameObject != null && repeat) yield return sr.LerpColor(end, start, duration, repeat);
     }
 
     public static IEnumerator LerpColor(this SpriteRenderer sr, Color end, float duration, bool repeat = false)

@@ -73,7 +73,7 @@ public abstract class Weapon : MonoBehaviour
     public void NotifyThrowerEndWeaponUse()
     {
         Debug.Log($"Notifying thrower {thrower}");
-        thrower?.EndWeaponUse();
+        if (thrower != null) thrower.EndWeaponUse();
         //if (thrower != null) thrower.SendMessage(nameof(thrower.EndWeaponUse));
         thrower = null;
     }

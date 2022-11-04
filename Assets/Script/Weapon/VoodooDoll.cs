@@ -29,8 +29,11 @@ public class VoodooDoll : Weapon
             if (hit.collider != null)
             {
                 Debug.Log($"{hit} {hit.collider} {hit.rigidbody} {hit.collider.gameObject.name}");
-                PirateController pc = hit.collider?.gameObject?.GetComponent<PirateController>();
-                if (pc) targetPirate = pc;
+                if (hit.collider != null && hit.collider.gameObject != null)
+                {
+                    PirateController pc = hit.collider.gameObject.GetComponent<PirateController>();
+                    if (pc) targetPirate = pc;
+                }
             }
         }
         SpriteRenderer sr = GetComponent<SpriteRenderer>();

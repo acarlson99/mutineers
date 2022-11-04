@@ -1,5 +1,4 @@
 using Cinemachine;
-using System.Linq;
 using UnityEngine;
 
 public enum TurnState { Start, Thrown, BombSummoned, BombThrown, End };
@@ -20,30 +19,8 @@ public class TurnManager
             state = TurnState.Start;
             selectedBoy = null;
             Singleton.Instance.CamFollow(null);
-
-            var objs = GameObject.FindGameObjectsWithTag("Terrain");
-            var range = Enumerable.Range(0, 0);
-            foreach (var obj in objs)
-            {
-                if (!obj.GetComponent<BoxCollider2D>()) continue;
-
-                var bc = obj.GetComponent<BoxCollider2D>();
-
-                var width = Mathf.Abs(bc.bounds.max.x - bc.bounds.min.x);
-                var x = obj.transform.position.x;
-                var r = Enumerable.Range((int)(x - width / 2), (int)width);
-                range = range.Union(r);
-            }
-
-            var pos = new Vector3(range.RandomElement(), Singleton.Instance.cameraBounds.MaxY(), 0);
-            GameObject chestObj = GameObject.Instantiate(Singleton.Instance.chestFab, pos, Quaternion.identity);
-            var chest = chestObj.GetComponent<TreasureChest>();
-            var warr = Singleton.Instance.chestWeapons;
-            for (int i = 0; i < 2; i++)
-            {
-                chest.contents.Add(warr[UnityEngine.Random.Range(0, warr.Length)]);
-            }
-            Singleton.Instance.CamFollow(chestObj.transform);
+            var chestObj = TreasureChest.DropRandomly();
+            if (chestObj != null) Singleton.Instance.CamFollow(chestObj.transform);
         }
     }
 

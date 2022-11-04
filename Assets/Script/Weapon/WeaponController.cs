@@ -97,7 +97,7 @@ public class WeaponController : MonoBehaviour
         }
         if (nDest == n)
         {
-            p?.EndWeaponUse();
+            if (p) p.EndWeaponUse();
             Singleton.Instance.CamFollow(null);
         }
         else
