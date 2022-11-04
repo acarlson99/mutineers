@@ -97,7 +97,10 @@ public class CameraEdgePanner : MonoBehaviour
         // TODO: likely this should live in TurnManager
         if (Singleton.Instance.turnManager.GetLosingTeam() > -1)
         {
+#if UNITY_EDITOR
+#else
             Invoke(nameof(MainMenu), 2.5f);
+#endif
             winCanvas.SetActive(true);
         }
     }
