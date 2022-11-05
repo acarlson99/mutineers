@@ -38,6 +38,7 @@ public class TreasureChest : MonoBehaviour
         if (range.Count() == 0) return null;
 
         var pos = new Vector3(range.RandomElement(), Singleton.Instance.cameraBounds.MaxY(), 0);
+        Debug.Log($"Selected {pos.x}");
         GameObject chestObj = GameObject.Instantiate(Singleton.Instance.chestFab, pos, Quaternion.identity);
         var chest = chestObj.GetComponent<TreasureChest>();
         var warr = Singleton.Instance.chestWeapons;
