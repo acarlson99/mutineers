@@ -44,7 +44,8 @@ public class TreasureChest : MonoBehaviour
         var warr = Singleton.Instance.chestWeapons;
         for (int i = 0; i < 2; i++)
         {
-            chest.contents.Add(warr[UnityEngine.Random.Range(0, warr.Length)]);
+            if (chest.contents.Count > 0) chest.contents.Add(warr[UnityEngine.Random.Range(0, warr.Length)]);
+            else Debug.LogWarning("Empty chest");
         }
         return chestObj;
     }
