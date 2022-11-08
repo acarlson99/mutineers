@@ -52,7 +52,7 @@ public class PirateController : MonoBehaviour, IExplodable
     {
         if (isCaptain)
         {
-            GetComponent<SpriteRenderer>().sprite = Singleton.Instance.captainSprite;
+            if (Singleton.Instance) GetComponent<SpriteRenderer>().sprite = Singleton.Instance.captainSprite;
         }
         if (teamNum != 0)
         {

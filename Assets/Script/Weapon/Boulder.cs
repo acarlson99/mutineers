@@ -23,7 +23,7 @@ public class Boulder : Weapon
 
         if (!thrown) return;
 
-        if (rb.IsMovingSlowly(0.04f))
+        if (rb.IsMovingSlowly(0.15f))
         {
             if (thrower)
             {
@@ -31,6 +31,7 @@ public class Boulder : Weapon
                 Destroy(gameObject, 2);
             }
         }
+        Debug.Log(rb.velocity.magnitude);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
