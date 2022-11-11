@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System.Collections.ObjectModel;
+using System.Reflection;
 
 public static class ExtensionMethods
 {
@@ -136,5 +138,10 @@ public static class ExtensionMethods
     {
         int index = rand.Next(0, enumerable.Count());
         return enumerable.ElementAt(index);
+    }
+
+    public static List<float>.Enumerator GetEnumerator(this Vector2 v)
+    {
+        return new List<float>() { v.x, v.y }.GetEnumerator();
     }
 }

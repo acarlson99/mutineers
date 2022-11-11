@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5895916719649626739}
   - component: {fileID: 5895916719649626738}
   - component: {fileID: 5895916719649626741}
+  - component: {fileID: 3500954308375006015}
   m_Layer: 5
   m_Name: MinimapCanvas
   m_TagString: Untagged
@@ -110,6 +111,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5895916719649626743}
   m_CullTransparentMesh: 1
+--- !u!114 &3500954308375006015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5895916719649626743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81376db06cd0eee48bf3a6bf7893358b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+  rawImage: {fileID: 5895916719844842509}
 --- !u!1 &5895916719844842511
 GameObject:
   m_ObjectHideFlags: 0
