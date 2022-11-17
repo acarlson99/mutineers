@@ -59,4 +59,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/L17.unity
     guid: 91f2a85732fb61d4a9589cf02a40f72c
+  - enabled: 1
+    path: Assets/Scene/L18.unity
+    guid: e497a898e0693254d8916a5c0de5cd5e
   m_configObjects: {}
