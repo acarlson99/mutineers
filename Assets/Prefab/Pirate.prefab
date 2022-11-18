@@ -249,14 +249,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb303161e98cee46b03e88108e2fe63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menu: {fileID: 0}
   teamNum: 0
   Ilist: []
   isCaptain: 0
   throwMode: 0
   bombThrowMode: 0
   lastThrown: {fileID: 0}
-  healthBar: {fileID: 3009940522718443454}
+  healthBar: {fileID: 6838179837767396866}
   minimapIcon: {fileID: 2228057964606169872}
 --- !u!1001 &8527832965987769292
 PrefabInstance:
@@ -313,10 +312,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBar
       objectReference: {fileID: 0}
-    - target: {fileID: 8912878873877130713, guid: 711caf3e87949f1489270b8701cb968f, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 711caf3e87949f1489270b8701cb968f, type: 3}
 --- !u!4 &1852481538033640216 stripped
@@ -324,9 +319,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8065283663688366292, guid: 711caf3e87949f1489270b8701cb968f, type: 3}
   m_PrefabInstance: {fileID: 8527832965987769292}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3009940522718443454 stripped
+--- !u!114 &6838179837767396866 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6889810421952195698, guid: 711caf3e87949f1489270b8701cb968f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2936042063722722766, guid: 711caf3e87949f1489270b8701cb968f, type: 3}
   m_PrefabInstance: {fileID: 8527832965987769292}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

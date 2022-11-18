@@ -43,7 +43,7 @@ public class PirateController : MonoBehaviour, IExplodable
         rb = GetComponent<Rigidbody2D>();
         PriateSpriteInit();
 
-        Singleton.Instance.turnManager.PlayerRegister(teamNum);
+        Singleton.Instance.turnManager.PlayerRegister(teamNum, this);
         menu = Singleton.Instance.playerMenu;
     }
 
@@ -102,6 +102,7 @@ public class PirateController : MonoBehaviour, IExplodable
     private void OnDestroy()
     {
         Singleton.Instance.turnManager.PlayerUnregister(teamNum);
+        healthBar.currentHealth = 0f;
         if (IsSelectedPirate())
         {
             Singleton.Instance.turnManager.UpdateState(TurnState.End);

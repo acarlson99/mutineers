@@ -33,9 +33,14 @@ public class TurnManager
         return true;
     }
 
-    public void PlayerRegister(int team)
+    public void PlayerRegister(int team, PirateController p)
     {
         unitCounts[team]++;
+        var bars = GameObject.FindGameObjectsWithTag("TeamHealthBar");
+        foreach (var bar in bars)
+        {
+            if (bar.GetComponent<TeamHealthBar>().teamNum == p.teamNum) bar.GetComponent<TeamHealthBar>().AddToPool(p.healthBar);
+        }
     }
 
     public void PlayerUnregister(int team)
