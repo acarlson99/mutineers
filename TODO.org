@@ -21,6 +21,9 @@
         - [X] weapon
         - [ ] treasure
       - [X] 7
+        - [X] level
+        - [X] weapon
+        - [X] treasure
       - [-] 8
         - [X] level
         - [ ] weapon
@@ -48,6 +51,30 @@
   - [-] Player [2/3]
     - [ ] Enemy AI
       - Unity ML Agents
+        - [ ] observations
+          - [ ] terrain info
+          - [ ] pirate info
+            - [ ] positions
+            - [ ] health
+            - [ ] inventory
+          - [ ] inventory
+          - [ ] turn state
+        - [ ] actions
+          - [ ] throw pirate
+          - [ ] select weapon
+          - [ ] deploy/launch weapon
+          - [ ] end turn
+        - [ ] rewards
+          - [ ] negative
+            - [ ] taking damage
+            - [ ] lose pirates
+            - [ ] misuse inventory item/use item that doesn't exist/pick invalid option
+            - [ ] lose game
+          - [ ] positive
+            - [ ] damage
+            - [ ] kill enemy pirates
+            - [ ] win game
+            - [ ] gain inventory
     - [X] Items [2/2]
       - [X] Inventory (limited uses of items)
         - [X] Implement
